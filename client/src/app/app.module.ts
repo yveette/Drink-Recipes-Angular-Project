@@ -20,6 +20,7 @@ import { HeaderComponent } from './core/header/header.component';
   bootstrap: [
     AppComponent,
     HeaderComponent,
+    FooterComponent
   ]
 })
 export class AppModule { }
