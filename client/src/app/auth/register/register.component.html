@@ -1,0 +1,32 @@
+<form class="login">
+    <div class="parent">
+        <h2>Registration Form</h2>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput name="username" id="username" placeholder="peter123">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput name="email" id="email" placeholder="peter@gmail.com">
+            <!-- <mat-error>Error here</mat-error> -->
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" name="password" id="password" placeholder="******">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Repeat Password</mat-label>
+            <input matInput type="password" name="rePassword" id="rePassword" placeholder="******">
+        </mat-form-field>
+
+        <button mat-flat-button color="primary">Create Profile</button>
+
+        <p class="text-center">
+            Have an account?
+            <a routerLink="/login">Log In</a>
+        </p>
+    </div>
+</form>

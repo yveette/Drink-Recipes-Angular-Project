@@ -1,0 +1,23 @@
+<form class="login">
+    <div class="parent">
+        <h2>Login Form</h2>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput name="email" id="email" placeholder="peter@gmail.com">
+            <!-- <mat-error>Error here</mat-error> -->
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" name="password" id="password" placeholder="******">
+        </mat-form-field>
+
+        <button mat-flat-button color="primary">Login</button>
+
+        <p class="text-center">
+            Don't have an account yet?
+            <a routerLink="/register">Sign Up</a>
+        </p>
+    </div>
+</form>
