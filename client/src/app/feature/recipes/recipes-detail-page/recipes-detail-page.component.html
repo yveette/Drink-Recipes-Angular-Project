@@ -1,4 +1,7 @@
-<p>Name: {{recipe.recipeName}}</p>
+<p>recipes-detail-page works!</p>
+
+<h2>Details:</h2>
+<h3>Name: {{recipe.recipeName}}</h3>
 <p>Description: {{recipe.description}}</p>
 <p>Created by: {{recipe.userId.username}}</p>
 
@@ -8,10 +11,6 @@
 <p>Comments: {{recipe.comments.length}}</p>
 <p>Likes: {{recipe.likes.length}}</p>
 
-<div>
-    <a [routerLink]="['/recipes', recipe._id]">Details</a>
-</div>
-
 <!-- TODO: get correct comments and likes, not id -->
-<p>{{recipe.comments}}</p>
-<p>{{recipe.likes}}</p>
+<!-- <p>{{recipe.comments}}</p>
+<p>{{recipe.likes}}</p> -->

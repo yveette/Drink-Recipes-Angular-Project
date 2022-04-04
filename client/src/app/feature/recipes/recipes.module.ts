@@ -5,6 +5,7 @@ import { RecipesListItemComponent } from './recipes-list-item/recipes-list-item.
 import { RecipesPageComponent } from './recipes-page/recipes-page.component';
 import { RecipesRoutingModule } from './recipes-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { RecipesDetailPageComponent } from './recipes-detail-page/recipes-detail-page.component';
 
 
 
@@ -12,7 +13,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
   declarations: [
     RecipesListComponent,
     RecipesListItemComponent,
-    RecipesPageComponent
+    RecipesPageComponent,
+    RecipesDetailPageComponent
   ],
   imports: [
     CommonModule,
