@@ -11,7 +11,10 @@ import { PagesModule } from './feature/pages/pages.module';
 import { RecipesModule } from './feature/recipes/recipes.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserService } from './core/user.service';
+import { RecipeService } from './core/recipe.service';
+import { CommentService } from './core/comment.service';
 import { storageServiceProvider } from './core/storage.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,6 +22,7 @@ import { storageServiceProvider } from './core/storage.service';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     CoreModule,
     AppRoutingModule,
     RecipesModule,
@@ -26,10 +30,11 @@ import { storageServiceProvider } from './core/storage.service';
     AuthModule,
     BrowserAnimationsModule
   ],
-  providers: [],
   providers: [
     UserService,
+    RecipeService,
     storageServiceProvider,
+    CommentService,
   ],
   bootstrap: [
     AppComponent,

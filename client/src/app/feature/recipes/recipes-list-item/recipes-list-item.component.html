@@ -1,1 +1,13 @@
-<p>recipes-list-item works!</p>
+<p>Name: {{recipe.recipeName}}</p>
+<p>Description: {{recipe.description}}</p>
+<p>Created by: {{recipe.userId.username}}</p>
+
+<!-- TODO make list -->
+<p>Ingredients: {{recipe.ingredients}}</p>
+<p>Date: {{recipe.created_at | date:'medium'}}</p>
+<p>Comments: {{recipe.comments.length}}</p>
+<p>Likes: {{recipe.likes.length}}</p>
+
+<!-- TODO: get correct comments and likes, not id -->
+<p>{{recipe.comments}}</p>
+<p>{{recipe.likes}}</p>
