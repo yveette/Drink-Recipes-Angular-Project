@@ -1,19 +1,43 @@
-<form class="login">
+<form class="login" [formGroup]="loginFormGroup" (ngSubmit)="handleLogin()">
     <div class="parent">
         <h2>Login Form</h2>
 
         <mat-form-field appearance="outline">
             <mat-label>Email</mat-label>
-            <input matInput name="email" id="email" placeholder="peter@gmail.com">
-            <!-- <mat-error>Error here</mat-error> -->
+            <input formControlName="email" type="email" matInput name="email" id="email" placeholder="peter@gmail.com"
+                [class.input-error]="loginFormGroup.controls['email'].touched && loginFormGroup.controls['email'].invalid">
+            <!-- Errors: -->
+            <mat-error *ngIf="loginFormGroup.controls['email'].touched && loginFormGroup.controls['email'].invalid">
+                Email is
+                <strong *ngIf="loginFormGroup.controls['email'].hasError('required')">
+                    required!
+                </strong>
+                <strong
+                    *ngIf="!loginFormGroup.controls['email'].hasError('required') && loginFormGroup.controls['email'].hasError('email')">
+                    not valid!
+                </strong>
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
             <mat-label>Password</mat-label>
-            <input matInput type="password" name="password" id="password" placeholder="******">
+            <input formControlName="password" matInput type="password" name="password" id="password"
+                placeholder="******"
+                [class.input-error]="loginFormGroup.controls['password'].touched && loginFormGroup.controls['password'].invalid">
+            <!-- Errors: -->
+            <mat-error
+                *ngIf="loginFormGroup.controls['password'].touched && loginFormGroup.controls['password'].invalid">
+                Password
+                <strong *ngIf="loginFormGroup.controls['password'].hasError('required')">
+                    is required!
+                </strong>
+                <strong *ngIf="!loginFormGroup.controls['password'].hasError('required') && loginFormGroup.controls['password'].hasError('minlength')">
+                    must be at least 5 characters!
+                </strong>
+            </mat-error>
         </mat-form-field>
 
-        <button mat-flat-button color="primary">Login</button>
+        <button [disabled]="loginFormGroup.invalid" mat-flat-button color="primary">Login</button>
 
         <p class="text-center">
             Don't have an account yet?
