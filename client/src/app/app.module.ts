@@ -10,6 +10,8 @@ import { HeaderComponent } from './core/header/header.component';
 import { PagesModule } from './feature/pages/pages.module';
 import { RecipesModule } from './feature/recipes/recipes.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UserService } from './core/user.service';
+import { storageServiceProvider } from './core/storage.service';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule
   ],
   providers: [],
+  providers: [
+    UserService,
+    storageServiceProvider,
+  ],
   bootstrap: [
     AppComponent,
     HeaderComponent,

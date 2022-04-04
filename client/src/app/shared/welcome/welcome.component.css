@@ -1,0 +1,45 @@
+.welcome {
+    padding: 0.3em 0.5em;
+    border: 1px solid #999;
+    border-radius: 0.3em;
+    margin-top: 1em;
+    /* width: 80%; */
+}
+
+.welcome h3 {
+    background-color: #74A044;
+    border-radius: 0.3em;
+    padding: 0.3em 1em;
+}
+
+.welcome p {
+    padding: 1em;
+    border-bottom: 1px solid #999;
+    font-style: normal;
+}
+
+.welcome a {
+    color: white;
+    text-decoration: none;
+    background-color: #8baa69;
+    border: none;
+    border-radius: 0.3em;
+    padding: 0.5em 5.2em;
+    margin: 1em;
+}
+
+.welcome a:hover {
+    cursor: pointer;
+    background-color: #74A044;
+}
+
+.welcome ul {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0;
+    margin: 1em;
+}
+
+.welcome li {
+    list-style: none;
+}

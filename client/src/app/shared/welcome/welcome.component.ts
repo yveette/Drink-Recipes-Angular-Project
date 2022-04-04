@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/core/user.service';
 
 @Component({
-  selector: 'app-recipes-page',
-  templateUrl: './recipes-page.component.html',
-  styleUrls: ['./recipes-page.component.css']
+  selector: 'app-welcome',
+  templateUrl: './welcome.component.html',
+  styleUrls: ['./welcome.component.css']
 })
-export class RecipesPageComponent implements OnInit {
-
+export class WelcomeComponent implements OnInit {
+  
   isLoggedIn: boolean = this.userService.isLogged;
 
   constructor(private userService: UserService) { }

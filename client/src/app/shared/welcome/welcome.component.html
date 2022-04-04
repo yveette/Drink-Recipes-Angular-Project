@@ -1,0 +1,18 @@
+<div class="welcome">
+    <h3>Welcome!</h3>
+    <p>This is a place, where you can post your recipes, comments, and find more recipes.</p>
+    <div class="logged" *ngIf="!isLoggedIn">
+        <ul>
+            <li>
+                <a routerLink="/login">
+                    Login
+                </a>
+            </li>
+            <li>
+                <a routerLink="/register">
+                    Register
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
