@@ -1,28 +1,87 @@
-<form class="login">
+<form class="login" [formGroup]="registerFormGroup" (ngSubmit)="handleRegister()">
     <div class="parent">
         <h2>Registration Form</h2>
+        <p>
+            <mat-form-field appearance="outline">
+                <mat-label>Username</mat-label>
+                <input formControlName="username" matInput name="username" id="username" placeholder="peter123">
 
-        <mat-form-field appearance="outline">
-            <mat-label>Username</mat-label>
-            <input matInput name="username" id="username" placeholder="peter123">
-        </mat-form-field>
+                <!-- Errors: -->
+                <mat-error
+                    *ngIf="registerFormGroup.controls['username'].touched && registerFormGroup.controls['username'].invalid">
+                    Username
+                    <strong *ngIf="registerFormGroup.controls['username'].hasError('required')">
+                        is required!
+                    </strong>
+                    <strong
+                        *ngIf="!registerFormGroup.controls['username'].hasError('required') && registerFormGroup.controls['username'].hasError('minlength')">
+                        must be at least 5 characters!
+                    </strong>
+                </mat-error>
+            </mat-form-field>
+        </p>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Email</mat-label>
-            <input matInput name="email" id="email" placeholder="peter@gmail.com">
-            <!-- <mat-error>Error here</mat-error> -->
-        </mat-form-field>
-        
-        <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input matInput type="password" name="password" id="password" placeholder="******">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Repeat Password</mat-label>
-            <input matInput type="password" name="rePassword" id="rePassword" placeholder="******">
-        </mat-form-field>
+        <p>
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input formControlName="email" matInput name="email" id="email" placeholder="peter@gmail.com">
+                <!-- Errors: -->
+                <mat-error
+                    *ngIf="registerFormGroup.controls['email'].touched && registerFormGroup.controls['email'].invalid">
+                    Email is
+                    <strong *ngIf="registerFormGroup.controls['email'].hasError('required')">
+                        required!
+                    </strong>
+                    <strong
+                        *ngIf="!registerFormGroup.controls['email'].hasError('required') && registerFormGroup.controls['email'].hasError('email')">
+                        not valid!
+                    </strong>
+                </mat-error>
+            </mat-form-field>
+        </p>
 
-        <button mat-flat-button color="primary">Create Profile</button>
+        <div formGroupName="passwords" id="passwords">
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input formControlName="password" matInput type="password" name="password" id="password"
+                        placeholder="******" >
+                    <!-- Errors: -->
+                    <mat-error
+                        *ngIf="passwordsGroup.controls['password'].touched && passwordsGroup.controls['password'].invalid">
+                        Password
+                        <strong *ngIf="passwordsGroup.controls['password'].hasError('required')">
+                            is required!
+                        </strong>
+                        <strong
+                            *ngIf="!passwordsGroup.controls['password'].hasError('required') && passwordsGroup.controls['password'].hasError('minlength')">
+                            must be at least 5 characters!
+                        </strong>
+                    </mat-error>
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Repeat Password</mat-label>
+                    <input formControlName="rePassword" matInput type="password" name="rePassword" id="rePassword"
+                        placeholder="******">
+                    <!-- Errors: -->
+                    <mat-error
+                        *ngIf="passwordsGroup.controls['rePassword'].touched && passwordsGroup.controls['rePassword'].invalid">
+                        
+                        <strong *ngIf="passwordsGroup.controls['rePassword'].hasError('required')">
+                            Repeat Password is required
+                        </strong>
+                        <strong *ngIf="passwordsGroup.controls['rePassword'].hasError('passwordMatch')">
+                            Repeat Password does not match password!
+                        </strong>
+                    </mat-error>
+                </mat-form-field>
+            </p>
+        </div>
+
+        <button [disabled]="registerFormGroup.invalid" mat-flat-button color="primary">Create Profile</button>
 
         <p class="text-center">
             Have an account?
