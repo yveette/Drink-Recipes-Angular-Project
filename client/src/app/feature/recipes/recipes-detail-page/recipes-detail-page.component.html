@@ -1,17 +1,24 @@
-<p>recipes-detail-page works!</p>
+<div class="templatemo-detail content">
 
-<h2>Details:</h2>
-<h3>Name: {{recipe.recipeName}}</h3>
-<p>Description: {{recipe.description}}</p>
-<p>Created by: {{recipe.userId.username}}</p>
+    <div class="about-detail">
+        <h1>{{recipe.recipeName}}</h1>
+        <p class="right date">date: {{recipe.created_at | date:'medium'}}</p>
+        <br>
 
-<!-- TODO make list -->
-<p>Ingredients: {{recipe.ingredients}}</p>
-<p>Image: {{recipe.imgUrl}}</p>
-<p>Date: {{recipe.created_at | date:'medium'}}</p>
-<p>Comments: {{recipe.comments.length}}</p>
-<p>Likes: {{recipe.likes.length}}</p>
+        <img src="{{recipe.imgUrl}}" alt="image" class="left shadow">
+        <p class="justify">{{recipe.description}}</p>
 
-<!-- TODO: get correct comments and likes, not id -->
-<!-- <p>{{recipe.comments}}</p>
-<p>{{recipe.likes}}</p> -->
+        <br>
+        <p class="right">author: {{recipe.userId.username}}</p>
+        <br>
+
+
+        <h3 class="subtitle">Ingredients: </h3>
+        <ul class="checkmark pad-left" *ngFor="let ingr of recipe.ingredients">
+            <li>{{ingr}}</li>
+        </ul>
+        <!-- TODO: get correct comments and likes, not id -->
+        <!-- <p>{{recipe.comments}}</p>
+            <p>{{recipe.likes}}</p> -->
+    </div>
+</div>
