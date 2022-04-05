@@ -1,0 +1,64 @@
+<form class="login" [formGroup]="recipeFormGroup" (ngSubmit)="handleCreateRecipe()">
+    <div class="parent">
+        <h2>Add New Recipe</h2>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Recipe Name</mat-label>
+            <input formControlName="recipeName" type="text" matInput name="recipeName" id="recipeName"
+                placeholder="Basic Omelette">
+
+            <mat-error
+                *ngIf="recipeFormGroup.controls['recipeName'].touched && recipeFormGroup.controls['recipeName'].invalid">
+                Recipe Name
+                <strong *ngIf="recipeFormGroup.controls['recipeName'].hasError('required')">
+                    is required!
+                </strong>
+                <strong
+                    *ngIf="!recipeFormGroup.controls['recipeName'].hasError('required') && recipeFormGroup.controls['recipeName'].hasError('minlength')">
+                    must be at least 3 characters!
+                </strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea formControlName="description" type="text" matInput name="description" id="description"
+                placeholder="Basic Omelette">
+            </textarea>
+            <mat-error
+                *ngIf="recipeFormGroup.controls['description'].touched && recipeFormGroup.controls['description'].invalid">
+                Description
+                <strong *ngIf="recipeFormGroup.controls['description'].hasError('required')">
+                    is required!
+                </strong>
+                <strong
+                    *ngIf="!recipeFormGroup.controls['description'].hasError('required') && recipeFormGroup.controls['description'].hasError('minlength')">
+                    must be at least 10 characters!
+                </strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Ingredients</mat-label>
+            <textarea formControlName="ingredients" type="text" matInput name="ingredients" id="ingredients"
+                placeholder="eggs 3, salt, pepper">
+            </textarea>
+            <mat-error
+                *ngIf="recipeFormGroup.controls['ingredients'].touched && recipeFormGroup.controls['ingredients'].invalid">
+                Description
+                <strong *ngIf="recipeFormGroup.controls['ingredients'].hasError('required')">
+                    is required!
+                </strong>
+                <strong
+                    *ngIf="!recipeFormGroup.controls['ingredients'].hasError('required') && recipeFormGroup.controls['ingredients'].hasError('ingredients')">
+                    must be valid!
+                </strong>
+            </mat-error>
+        </mat-form-field>
+
+        <!-- TODO: disable button -->
+        <!-- <button [disabled]="recipeFormGroup.invalid" mat-flat-button color="primary">Add Recipe</button> -->
+        <button mat-flat-button color="primary">Add Recipe</button>
+
+    </div>
+</form>

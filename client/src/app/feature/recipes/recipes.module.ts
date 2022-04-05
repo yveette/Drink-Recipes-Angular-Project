@@ -6,6 +6,13 @@ import { RecipesPageComponent } from './recipes-page/recipes-page.component';
 import { RecipesRoutingModule } from './recipes-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { RecipesDetailPageComponent } from './recipes-detail-page/recipes-detail-page.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RecipesNewPageComponent } from './recipes-new-page/recipes-new-page.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -14,12 +21,20 @@ import { RecipesDetailPageComponent } from './recipes-detail-page/recipes-detail
     RecipesListComponent,
     RecipesListItemComponent,
     RecipesPageComponent,
-    RecipesDetailPageComponent
+    RecipesDetailPageComponent,
+    RecipesNewPageComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    RecipesRoutingModule
+    RecipesRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    BrowserAnimationsModule,
   ]
 })
 export class RecipesModule { }

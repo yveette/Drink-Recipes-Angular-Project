@@ -6,6 +6,10 @@ import { IRecipe } from './interfaces';
 
 const apiUrl = environment.apiUrl;
 
+export interface CreateRecipeDto {
+  recipeName: string, ingredients: string[], description: string
+}
+
 @Injectable()
 export class RecipeService {
 
@@ -17,7 +21,11 @@ export class RecipeService {
     );
   }
 
-  loadRecipeById(id:string): Observable<IRecipe> {
+  loadRecipeById(id: string): Observable<IRecipe> {
     return this.http.get<IRecipe>(`${apiUrl}/recipes/${id}`);
+  }
+
+  addRecipe$(body: CreateRecipeDto): Observable<IRecipe> {
+    return this.http.post<IRecipe>(`${apiUrl}/recipes`, body, { withCredentials: true });
   }
 }
