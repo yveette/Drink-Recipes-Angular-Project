@@ -65,4 +65,10 @@ export class ProfileComponent implements OnInit {
     })
   }
 
+  updateProfile(): void {
+    // console.log(this.editProfileForm.value);
+    // TODO update profile
+    this.isInEditMode = false;
+  }
+
 }
