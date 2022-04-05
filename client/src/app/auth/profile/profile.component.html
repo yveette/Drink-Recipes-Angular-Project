@@ -1,8 +1,47 @@
-<p>profile works!</p>
-
 <h3>User Info:</h3>
+<ng-container *ngIf="!!currentUser">
+    <ng-container *ngIf="!isInEditMode">
+        <div class="flex">
+            <p>Username: </p>
+            <p>{{currentUser.username}}</p>
+        </div>
+        <div class="flex">
+            <p>Email: </p>
+            <p>{{currentUser.email}}</p>
+        </div>
+        <div class="flex">
+            <p>Recipes: </p>
+            <p>{{currentUser.recipes.length}}</p>
+        </div>
+        <div class="flex">
+            <p>Comments: </p>
+            <p>{{currentUser.comments.length}}</p>
+        </div>
+        <button (click)="enterEditMode()" class="edit-button">Edit</button>
+    </ng-container>
+</ng-container>
 
-<!-- TODO: add logged in user data -->
-<p>Username: </p>
-<p>Email: </p>
-<p>Likes: </p>
+<ng-container *ngIf="isInEditMode">
+    <form #editProfileForm="ngForm">
+        <div class="flex">
+            <p>Username: </p>
+            <input type="text" name="username" ngModel required minlength="5" id="username" value="Johny">
+        </div>
+        <div class="flex">
+            <p>Email: </p>
+            <input type="email" name="email" id="email" ngModel required value="john.doe@gmail.com">
+        </div>
+        <button type="button" (click)="isInEditMode = false" class="red-button">Cancel</button>
+        <button class="green-button">Save</button>
+    </form>
+</ng-container>
+
+
+<button (click)="showUserRecipes()">Show my recipes</button>
+
+
+<div *ngIf="isShowRecipes">
+    <div *ngFor="let recipe of userRecipes">
+        <p>{{recipe.recipeName}}</p>
+    </div>
+</div>

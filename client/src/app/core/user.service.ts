@@ -32,6 +32,15 @@ export class UserService {
       .pipe(tap(user => this.currentUser = user))
   }
 
+  getProfile$(): Observable<IUser> {
+    return this.httpClient.get<IUser>(`${environment.apiUrl}/users/profile`, { withCredentials: true })
+      .pipe(
+        tap(user => {
+          // console.log(user)
+          this.currentUser = user})
+      )
+  }
+
   logout(): void {
 
   }

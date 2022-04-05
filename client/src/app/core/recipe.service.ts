@@ -28,4 +28,8 @@ export class RecipeService {
   addRecipe$(body: CreateRecipeDto): Observable<IRecipe> {
     return this.http.post<IRecipe>(`${apiUrl}/recipes`, body, { withCredentials: true });
   }
+
+  getAllRecipesByUser$(userId: string): Observable<IRecipe[]> {
+    return this.http.get<IRecipe[]>(`${apiUrl}/users/profile/${userId}`, { withCredentials: true });
+  }
 }
