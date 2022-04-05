@@ -14,6 +14,10 @@ const recipeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    imgUrl: {
+        type: String,
+        required: true
+    },
     likes: [{
         type: ObjectId,
         ref: 'User'

@@ -45,13 +45,16 @@ function getCommentsOfRecipe(req, res, next) {
 }
 
 function createRecipe(req, res, next) {
-    const { recipeName, ingredients, description, commentText } = req.body;
+    const { recipeName, ingredients, description, imgUrl, commentText } = req.body;
     const { _id: userId } = req.user;
 
-    recipeModel.create({ recipeName, ingredients, description, userId, likes: [] })
+    recipeModel.create({ recipeName, ingredients, description, imgUrl, userId, likes: [] })
         .then(recipe => {
             newComment(commentText, userId, recipe._id)
                 .then(([_, updatedRecipe]) => res.status(200).json(updatedRecipe));
+            Promise.all([
+                userModel.updateOne({ _id: userId }, { $push: { recipes: recipe._id } }),
+            ]);
         })
         .catch(next);
 }
