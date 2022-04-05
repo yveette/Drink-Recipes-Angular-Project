@@ -23,10 +23,18 @@ function getRecipe(req, res, next) {
         .catch(next);
 }
 
+function getAllRecipesByUser(req, res, next) {
+    const { userId } = req.params;
+
+    recipeModel.find({ userId })
+        .then(recipes => res.json(recipes))
+        .catch(next);
+}
+
 function getCommentsOfRecipe(req, res, next) {
     const { recipeId } = req.params;
 
-    recipeModel.findById(recipeId)
+    recipeModel.find(recipeId)
         .populate({
             path: 'comments',
             select: ['likes', 'text', 'userId', 'created_at'],
@@ -104,5 +112,6 @@ module.exports = {
     likeRecipe,
     editRecipe,
     deleteRecipe,
-    getCommentsOfRecipe
+    getCommentsOfRecipe,
+    getAllRecipesByUser
 };
