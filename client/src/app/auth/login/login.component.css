@@ -12,3 +12,7 @@ mat-form-field{
 button{
   width: 150px;
 }
+
+.error{
+  color: red;
+}

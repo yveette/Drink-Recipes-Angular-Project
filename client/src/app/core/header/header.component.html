@@ -8,12 +8,16 @@
 
         <div class="topnav-right">
             <!-- Guest -->
-            <a routerLink="/login">Login</a>
-            <a routerLink="/register">Register</a>
+            <ng-container *ngIf="!isLogged">
+                <a routerLink="/login">Login</a>
+                <a routerLink="/register">Register</a>
+            </ng-container>
 
             <!-- User -->
-            <a routerLink="/profile">Profile</a>
-            <a href="#">Logout</a>
+            <ng-container *ngIf="isLogged">
+                <a routerLink="/profile">{{currentUser.username}}'s profile</a>
+                <a href="#">Logout</a>
+            </ng-container>
         </div>
     </div>
 </header>

@@ -14,7 +14,6 @@ export class LoginComponent implements OnInit {
   errorMessage: string = '';
 
   loginFormGroup: FormGroup = this.formBuilder.group({
-    // TODO: validate email
     'email': new FormControl('', [Validators.required, emailValidator]),
     'password': new FormControl('', [Validators.required, Validators.minLength(5)])
   });
@@ -30,7 +29,22 @@ export class LoginComponent implements OnInit {
   handleLogin(): void {
     this.errorMessage = '';
     // console.log(this.loginFormGroup.value);
-    
+
+    this.errorMessage = '';
+    this.userService.login$(this.loginFormGroup.value).subscribe({
+      next: user => {
+        // console.log('User is ', user);
+        this.router.navigate(['/home']);
+      },
+      complete: () => {
+        // console.log('login stream completed');
+      },
+      error: (err) => {
+        // console.log('Error is ', err.error.message)
+        this.errorMessage = err.error.message;
+      }
+    });
+
   }
 
 }
