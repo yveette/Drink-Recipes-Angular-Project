@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RecipeService } from 'src/app/core/recipe.service';
-import { ingredientsValidator } from '../utils';
+import { ingredientsValidator, urlValidator } from '../utils';
 
 @Component({
   selector: 'app-recipes-new-page',
@@ -13,6 +13,7 @@ export class RecipesNewPageComponent implements OnInit {
   
   recipeFormGroup: FormGroup = this.formBuilder.group({
     'recipeName': new FormControl('', [Validators.required, Validators.minLength(3)]),
+    'imgUrl': new FormControl('', [Validators.required, urlValidator]),
     'description': new FormControl('', [Validators.required, Validators.minLength(10)]),
     'ingredients': new FormControl('', [Validators.required, ingredientsValidator ])
   })
@@ -32,6 +33,7 @@ export class RecipesNewPageComponent implements OnInit {
     }
     this.recipeFormGroup.value.recipeName = this.recipeFormGroup.value.recipeName.trim();
     this.recipeFormGroup.value.description = this.recipeFormGroup.value.description.trim();
+    this.recipeFormGroup.value.imgUrl = this.recipeFormGroup.value.imgUrl.trim();
 
     this.recipeService.addRecipe$(this.recipeFormGroup.value).subscribe({
       next: (recipe) => {

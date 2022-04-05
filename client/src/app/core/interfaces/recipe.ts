@@ -7,5 +7,6 @@ export interface IRecipe extends IBase {
   recipeName: string;
   ingredients: string[];
   description: string,
+  imgUrl: string,
   userId: IUser;
 }

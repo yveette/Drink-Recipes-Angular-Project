@@ -19,3 +19,20 @@ export function ingredientsValidator(control: AbstractControl): ValidationErrors
 
     return null;
 }
+
+export function urlValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+
+    
+    if (!value) {
+        return null;
+    }
+    
+    if (!/^https?:\/\/(.+)/.test(value)) {
+        return {
+            urlV: true,
+        }
+    }
+
+    return null;
+}

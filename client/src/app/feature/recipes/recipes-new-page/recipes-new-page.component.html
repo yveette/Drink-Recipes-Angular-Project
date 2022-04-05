@@ -21,6 +21,24 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
+            <mat-label>Image Link</mat-label>
+            <input formControlName="imgUrl" type="text" matInput name="imgUrl" id="imgUrl"
+                placeholder="https://...">
+
+            <mat-error
+                *ngIf="recipeFormGroup.controls['imgUrl'].touched && recipeFormGroup.controls['imgUrl'].invalid">
+                Image Link
+                <strong *ngIf="recipeFormGroup.controls['imgUrl'].hasError('required')">
+                    is required!
+                </strong>
+                <strong
+                    *ngIf="!recipeFormGroup.controls['imgUrl'].hasError('required') && recipeFormGroup.controls['imgUrl'].hasError('urlV')">
+                    must be a valid address!
+                </strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
             <mat-label>Description</mat-label>
             <textarea formControlName="description" type="text" matInput name="description" id="description"
                 placeholder="Basic Omelette">
