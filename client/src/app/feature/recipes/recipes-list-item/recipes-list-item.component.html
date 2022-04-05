@@ -1,17 +1,15 @@
-<p>Name: {{recipe.recipeName}}</p>
-<p>Description: {{recipe.description}}</p>
-<p>Created by: {{recipe.userId.username}}</p>
+<div class="portfolio-group">
+    <a class="portfolio-item" [routerLink]="['/recipes', recipe._id]">
+        <img src="{{recipe.imgUrl}}" alt="image">
+        <div class="detail">
+            <h3>{{recipe.recipeName}}</h3>
+            <!-- TODO: Use pipe for description -->
+            <p>{{(recipe.description | slice:0:25)}}...</p>
+            <p>Likes: {{recipe.likes.length}}</p>
+            <p>Comments: {{recipe.comments.length}}</p>
+            <p>Author: {{recipe.userId.username}}</p>
 
-<!-- TODO make list -->
-<p>Ingredients: {{recipe.ingredients}}</p>
-<p>Date: {{recipe.created_at | date:'medium'}}</p>
-<p>Comments: {{recipe.comments.length}}</p>
-<p>Likes: {{recipe.likes.length}}</p>
-
-<div>
-    <a [routerLink]="['/recipes', recipe._id]">Details</a>
+            <span class="btn">Details</span>
+        </div>
+    </a>
 </div>
-
-<!-- TODO: get correct comments and likes, not id -->
-<p>{{recipe.comments}}</p>
-<p>{{recipe.likes}}</p>

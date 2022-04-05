@@ -1,7 +1,10 @@
 <h3>Recipes:</h3>
-<div *ngIf="recipeList">
-    <app-recipes-list-item *ngFor="let recipe of recipeList" [recipe]="recipe"></app-recipes-list-item>
-    <div *ngIf="recipeList.length === 0">No Recipes!</div>
+<div *ngIf="recipeList" id="portfolio-content" class="center-text">
+    <div class="portfolio-page" id="page-1">
+        <app-recipes-list-item *ngFor="let recipe of recipeList" [recipe]="recipe"></app-recipes-list-item>
+    </div>
+
+    <div *ngIf="recipeList.length === 0" class="portfolio-page" id="page-1">No Recipes!</div>
 </div>
 <div *ngIf="!recipeList">
     Loading&hellip;
