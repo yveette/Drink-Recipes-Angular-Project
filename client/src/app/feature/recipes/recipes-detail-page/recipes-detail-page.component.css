@@ -13,6 +13,17 @@ h1{
     font-weight: bold;
 }
 
+.justify{
+    padding-top: 20px;
+    height: auto;
+    /* height: 130px; */
+}
+
 .subtitle{
     color: #446620;
+    /* padding-top: 107px; */
+}
+
+.right{
+    font-style: italic;
 }
