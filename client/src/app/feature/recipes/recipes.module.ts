@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { RecipesNewCommentComponent } from './recipes-new-comment/recipes-new-comment.component';
 
 
 
@@ -21,7 +22,8 @@ import { MatSelectModule } from '@angular/material/select';
     RecipesListItemComponent,
     RecipesPageComponent,
     RecipesDetailPageComponent,
-    RecipesNewPageComponent
+    RecipesNewPageComponent,
+    RecipesNewCommentComponent
   ],
   imports: [
     CommonModule,

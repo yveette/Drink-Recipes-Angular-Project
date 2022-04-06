@@ -12,8 +12,7 @@
         <p class="right">author: {{recipe.userId.username}}</p>
         <br>
 
-
-        <h3 class="subtitle">Ingredients: </h3>
+        <h2 class="subtitle">Ingredients: </h2>
         <ul class="checkmark pad-left" *ngFor="let ingr of recipe.ingredients">
             <li>{{ingr}}</li>
         </ul>
@@ -22,3 +21,5 @@
             <p>{{recipe.likes}}</p> -->
     </div>
 </div>
+
+<app-recipes-new-comment></app-recipes-new-comment>
