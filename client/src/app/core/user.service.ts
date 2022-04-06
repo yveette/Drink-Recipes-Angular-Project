@@ -12,36 +12,12 @@ export interface CreateUserDto {
 @Injectable()
 export class UserService {
 
-  currentUser!: IUser;
-
-  get isLogged() {
-    return !!this.currentUser;
-  }
-
   constructor(private storage: StorageService, private httpClient: HttpClient) {
 
   }
 
-  register$(userData: CreateUserDto): Observable<IUser> {
-    return this.httpClient.post<IUser>(`${environment.apiUrl}/register`, userData, { withCredentials: true });
-  }
-
-  login$(userData: { email: string, password: string }): Observable<IUser> {
-    return this.httpClient
-      .post<IUser>(`${environment.apiUrl}/login`, userData, { withCredentials: true })
-      .pipe(tap(user => this.currentUser = user))
-  }
-
   getProfile$(): Observable<IUser> {
-    return this.httpClient.get<IUser>(`${environment.apiUrl}/users/profile`, { withCredentials: true })
-      .pipe(
-        tap(user => {
-          // console.log(user)
-          this.currentUser = user})
-      )
+    return this.httpClient.get<IUser>(`${environment.apiUrl}/users/profile`, { withCredentials: true });
   }
 
-  logout(): void {
-
-  }
 }

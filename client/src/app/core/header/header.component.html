@@ -2,22 +2,22 @@
     <div class="topnav">
         <!-- TODO: logo image -->
 
-        <a class="home" href="/home">Home</a>
+        <a class="home" routerLink="/home">Home</a>
         <a routerLink="/recipes">Recipes</a>
         <a routerLink="/recipes/new">Add recipe</a>
         <a routerLink="/about">About</a>
 
         <div class="topnav-right">
             <!-- Guest -->
-            <ng-container *ngIf="!isLogged">
-                <a routerLink="/login">Login</a>
-                <a routerLink="/register">Register</a>
+            <ng-container *ngIf="!(isLoggedIn$ |async)">
+                <a routerLink="/user/login">Login</a>
+                <a routerLink="/user/register">Register</a>
             </ng-container>
 
             <!-- User -->
-            <ng-container *ngIf="isLogged">
-                <a routerLink="/profile">{{currentUser.username}}'s profile</a>
-                <a href="#">Logout</a>
+            <ng-container *ngIf="(isLoggedIn$ |async)">
+                <a routerLink="/user/profile">{{(currentUser$ | async)?.username}}'s profile</a>
+                <a href="javascript:void(0)" (click)="logoutHandler()">Logout</a>
             </ng-container>
         </div>
     </div>
