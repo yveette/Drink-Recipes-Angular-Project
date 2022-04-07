@@ -13,9 +13,8 @@ function newComment(text, userId, recipeId) {
 function createComment(req, res, next) {
     const { recipeId } = req.params;
     const { _id: userId } = req.user;
-    const { commentText } = req.body;
-
-    newComment(commentText, userId, recipeId)
+    const { text } = req.body;
+    newComment(text, userId, recipeId)
         .then(([_, updatedRecipe]) => res.status(200).json(updatedRecipe))
         .catch(next);
 }

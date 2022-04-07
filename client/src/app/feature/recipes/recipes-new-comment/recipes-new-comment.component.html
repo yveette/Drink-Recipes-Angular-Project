@@ -7,13 +7,13 @@
                         <legend>New Comment</legend>
                         <div class="row">
                             <div class="form-group col-xs-12 col-sm-9 col-lg-10">
-                                <textarea class="form-control" id="message" placeholder="Your message"
+                                <textarea #comment class="form-control" id="message" placeholder="Your message"
                                     required=""></textarea>
                             </div>
                         </div>
                     </fieldset>
                     <div class="btn">
-                        <button mat-flat-button color="primary">Submit</button>
+                        <button type="reset" (click)="submitComment(comment.value)" mat-flat-button color="primary">Submit</button>
                     </div>
                 </form>
 

@@ -10,12 +10,12 @@ import { ingredientsValidator, urlValidator } from '../utils';
   styleUrls: ['./recipes-new-page.component.css']
 })
 export class RecipesNewPageComponent implements OnInit {
-  
+
   recipeFormGroup: FormGroup = this.formBuilder.group({
     'recipeName': new FormControl('', [Validators.required, Validators.minLength(3)]),
     'imgUrl': new FormControl('', [Validators.required, urlValidator]),
     'description': new FormControl('', [Validators.required, Validators.minLength(10)]),
-    'ingredients': new FormControl('', [Validators.required, ingredientsValidator ])
+    'ingredients': new FormControl('', [Validators.required, ingredientsValidator])
   })
 
   constructor(private formBuilder: FormBuilder, private router: Router, private recipeService: RecipeService) { }
@@ -28,7 +28,7 @@ export class RecipesNewPageComponent implements OnInit {
     // console.log('form: ', this.recipeFormGroup.value);
 
     // Transform ingridients to array
-    if( this.recipeFormGroup.value.ingredients.includes(', ')){
+    if (this.recipeFormGroup.value.ingredients.includes(', ')) {
       this.recipeFormGroup.value.ingredients = this.recipeFormGroup.value.ingredients.split(', ');
     }
     this.recipeFormGroup.value.recipeName = this.recipeFormGroup.value.recipeName.trim();

@@ -8,11 +8,12 @@ import { IRecipe } from 'src/app/core/interfaces';
 })
 export class RecipesListItemComponent implements OnInit {
 
-  @Input() recipe!: IRecipe;
+  @Input() recipe: IRecipe;
 
   constructor() { }
 
   ngOnInit(): void {
+    // console.log(this.recipe)
   }
 
 }

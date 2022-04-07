@@ -10,15 +10,16 @@ import { RecipeService } from 'src/app/core/recipe.service';
 })
 export class RecipesDetailPageComponent implements OnInit {
 
-  recipe!: IRecipe;
+  recipe: IRecipe;
+  recipeId: string;
 
   constructor(private activatedRoute: ActivatedRoute, private recipeService: RecipeService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      const recipeId = params['recipeId'];
-      this.recipeService.loadRecipeById(recipeId).subscribe(recipe => {
-        // console.log(recipe);
+      this.recipeId = params['recipeId'];
+      this.recipeService.loadRecipeById(this.recipeId).subscribe(recipe => {
+        // console.log(this.recipeId);
         this.recipe = recipe;
       })
     })
