@@ -17,6 +17,10 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
   {
+    path: 'recipes',
+    loadChildren: () => import('./feature/recipes/recipes.module').then(m => m.RecipesModule)
+  },
+  {
     path: '**',
     component: NotFoundPageComponent
   }

@@ -6,16 +6,17 @@ import { RecipesPageComponent } from "./recipes-page/recipes-page.component";
 
 const routes: Routes = [
     {
-        path: 'recipes',
+        path: '',
+        pathMatch: 'full',
         component: RecipesPageComponent,
     },
     {
-        path: 'recipes/new',
+        path: 'new',
         canActivate: [AuthGuard],
         component: RecipesNewPageComponent,
     },
     {
-        path: 'recipes/:recipeId',
+        path: ':recipeId',
         component: RecipesDetailPageComponent,
     }
 ]

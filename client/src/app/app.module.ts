@@ -28,7 +28,6 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     CoreModule.forRoot(),
     AppRoutingModule,
-    RecipesModule,
     PagesModule,
     BrowserAnimationsModule
   ],

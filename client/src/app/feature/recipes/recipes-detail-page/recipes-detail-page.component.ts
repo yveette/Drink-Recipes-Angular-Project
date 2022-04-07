@@ -18,6 +18,7 @@ export class RecipesDetailPageComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       const recipeId = params['recipeId'];
       this.recipeService.loadRecipeById(recipeId).subscribe(recipe => {
+        // console.log(recipe);
         this.recipe = recipe;
       })
     })
