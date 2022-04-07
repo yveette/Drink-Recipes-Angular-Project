@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { map, Observable } from 'rxjs';
+import { AuthService } from 'src/app/auth.service';
 import { CommentService } from 'src/app/core/comment.service';
-import { IComment } from 'src/app/core/interfaces';
+import { IComment, IUser } from 'src/app/core/interfaces';
 
 @Component({
   selector: 'app-recipes-new-comment',
@@ -11,13 +13,15 @@ import { IComment } from 'src/app/core/interfaces';
 export class RecipesNewCommentComponent implements OnInit {
 
   @Input() recipeId: string;
-
+  
   comment: IComment;
 
-  constructor(private router: Router, private commentService: CommentService) { }
+  currentUser$: Observable<IUser | undefined> = this.authService.currentUser$;
+  isLoggedIn$ = this.currentUser$.pipe(map(user => !!user));
+
+  constructor(private router: Router, private commentService: CommentService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    console.log(this.recipeId);
   }
 
   submitComment(text: string): void {

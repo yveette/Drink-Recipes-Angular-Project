@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                <form>
+                <form *ngIf="(isLoggedIn$ | async)">
                     <fieldset>
                         <legend>New Comment</legend>
                         <div class="row">
@@ -13,7 +13,8 @@
                         </div>
                     </fieldset>
                     <div class="btn">
-                        <button type="reset" (click)="submitComment(comment.value)" mat-flat-button color="primary">Submit</button>
+                        <button type="reset" (click)="submitComment(comment.value)" mat-flat-button
+                            color="primary">Submit</button>
                     </div>
                 </form>
 

@@ -1,4 +1,4 @@
-<div class="templatemo-detail content">
+<div class="templatemo-detail content" *ngIf="recipe">
 
     <div class="about-detail">
         <h1>{{recipe.recipeName}}</h1>
@@ -19,8 +19,12 @@
         <!-- TODO: get correct comments and likes, not id -->
         <!-- <p>{{recipe.comments}}</p>
             <p>{{recipe.likes}}</p> -->
+
+        <div *ngIf="isAuthor">
+            <button>Edit</button>
+            <button>Delete</button>
+        </div>
     </div>
 </div>
 
 <app-recipes-new-comment [recipeId]="recipeId"></app-recipes-new-comment>
-<!-- <app-recipes-new-comment></app-recipes-new-comment> -->
