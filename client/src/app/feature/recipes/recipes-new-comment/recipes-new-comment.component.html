@@ -18,54 +18,33 @@
                     </div>
                 </form>
 
-                <!-- count all comments -->
-                <h3>4 Comments</h3>
+                <!-- if there are no comments: -->
+                <h3 *ngIf="!comments">0 Comments</h3>
 
-                <!-- COMMENT 1 - START -->
-                <div class="media">
-                    <div class="media-body">
-                        <h4 class="media-heading">John Doe</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,
-                            consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-                            ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur
-                            adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <div class="one-line">
-                            <ul class="list-unstyled list-inline media-detail pull-left">
-                                <li><i class="fa fa-calendar"></i>27/02/2014</li>
-                                <li><i class="fa fa-thumbs-up"></i>13</li>
-                                <li><i class="fa fa-thumbs-down"></i>8</li>
-                            </ul>
-                            <ul class="list-unstyled list-inline media-detail pull-right">
-                                <li class=""><a href="">Like</a></li>
-                                <li class=""><a href="">Dislike</a></li>
-                            </ul>
+                <ng-container *ngIf="comments">
+                    <h3>{{recipe.comments.length}} Comments</h3>
+                    
+                    <!-- COMMENT 1 - START -->
+                    <div class="media" *ngFor="let comment of comments">
+                        <div class="media-body">
+                            <h4 class="media-heading">{{comment.userId.username}}</h4>
+                            <p>Comment: {{comment.text}}</p>
+                            <div class="one-line">
+                                <ul class="list-unstyled list-inline media-detail pull-left">
+                                    <li><i class="fa fa-calendar"></i>{{(comment.created_at | date: 'medium')}}</li>
+                                    <li><i class="fa fa-thumbs-up"></i>{{comment.likes.length}}</li>
+                                    <!-- <li><i class="fa fa-thumbs-down"></i>8</li> -->
+                                </ul>
+                                <ul *ngIf="(isLoggedIn$ | async)"
+                                    class="list-unstyled list-inline media-detail pull-right">
+                                    <li class=""><a href="">Like</a></li>
+                                    <li class=""><a href="">Dislike</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- COMMENT 1 - END -->
-
-                <!-- COMMENT 2 - START -->
-                <div class="media">
-                    <div class="media-body">
-                        <h4 class="media-heading">John Doe</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,
-                            consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-                            ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur
-                            adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <div class="one-line">
-                            <ul class="list-unstyled list-inline media-detail pull-left">
-                                <li><i class="fa fa-calendar"></i>27/02/2014</li>
-                                <li><i class="fa fa-thumbs-up"></i>13</li>
-                                <li><i class="fa fa-thumbs-down"></i>8</li>
-                            </ul>
-                            <ul class="list-unstyled list-inline media-detail pull-right">
-                                <li class=""><a href="">Like</a></li>
-                                <li class=""><a href="">Dislike</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- COMMENT 2 - END -->
+                    <!-- COMMENT 1 - END -->
+                </ng-container>
             </div>
         </div>
     </div>

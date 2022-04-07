@@ -32,6 +32,7 @@ export class RecipesDetailPageComponent implements OnInit {
 
     this.recipeService.loadRecipeById(this.recipeId).subscribe(recipe => {
       // console.log(this.recipeId);
+      // console.log(recipe)
       this.recipe = recipe;
 
       if (this.user?._id == this.recipe.userId._id) {

@@ -19,6 +19,13 @@ function getRecipe(req, res, next) {
             path: 'userId',
             select: ['email', 'username'],
         })
+        .populate({
+            path: 'comments',
+            populate:{
+                path: 'userId',
+                select: ['email', 'username']
+            }
+        })
         .then(recipe => res.json(recipe))
         .catch(next);
 }

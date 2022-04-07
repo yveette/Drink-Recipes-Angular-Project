@@ -11,8 +11,8 @@ export class CommentService {
 
   constructor(private http: HttpClient) { }
 
-  addComment$( text: string, id: string): Observable<IComment> {
-    console.log(text)
-    return this.http.post<IComment>(`${apiUrl}/recipes/${id}`, {text}, { withCredentials: true });
+  addComment$(text: string, id: string): Observable<IComment> {
+    // console.log(text)
+    return this.http.post<IComment>(`${apiUrl}/recipes/${id}`, { text }, { withCredentials: true });
   }
 }
