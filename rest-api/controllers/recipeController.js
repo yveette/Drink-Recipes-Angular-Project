@@ -21,7 +21,7 @@ function getRecipe(req, res, next) {
         })
         .populate({
             path: 'comments',
-            populate:{
+            populate: {
                 path: 'userId',
                 select: ['email', 'username']
             }
@@ -76,14 +76,13 @@ function likeRecipe(req, res, next) {
         .catch(next);
 }
 
-//TODO: improve edit
 function editRecipe(req, res, next) {
     const { recipeId } = req.params;
-    const { recipe } = req.body;
-    const { _id: userId } = req.user;
+    const { recipeName, ingredients, description, imgUrl } = req.body;
 
-    // if the userId is not the same as this one of the post, the post will not be updated
-    recipeModel.findOneAndUpdate({ _id: recipeId, userId }, { text: recipe }, { new: true })
+    recipeModel.findOneAndUpdate({ _id: recipeId }, {
+        recipeName, ingredients, description, imgUrl
+    }, { runValidators: true, new: true })
         .then(updatedRecipe => {
             if (updatedRecipe) {
                 res.status(200).json(updatedRecipe);

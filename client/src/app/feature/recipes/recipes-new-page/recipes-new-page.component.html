@@ -1,11 +1,11 @@
 <form class="login" [formGroup]="recipeFormGroup" (ngSubmit)="handleCreateRecipe()">
     <div class="parent">
-        <h2>Add New Recipe</h2>
+        <h2>{{formName}}</h2>
 
         <mat-form-field appearance="outline">
             <mat-label>Recipe Name</mat-label>
             <input formControlName="recipeName" type="text" matInput name="recipeName" id="recipeName"
-                placeholder="Basic Omelette">
+                placeholder="Basic Omelette" >
 
             <mat-error
                 *ngIf="recipeFormGroup.controls['recipeName'].touched && recipeFormGroup.controls['recipeName'].invalid">
@@ -22,11 +22,9 @@
 
         <mat-form-field appearance="outline">
             <mat-label>Image Link</mat-label>
-            <input formControlName="imgUrl" type="text" matInput name="imgUrl" id="imgUrl"
-                placeholder="https://...">
+            <input formControlName="imgUrl" type="text" matInput name="imgUrl" id="imgUrl" placeholder="https://...">
 
-            <mat-error
-                *ngIf="recipeFormGroup.controls['imgUrl'].touched && recipeFormGroup.controls['imgUrl'].invalid">
+            <mat-error *ngIf="recipeFormGroup.controls['imgUrl'].touched && recipeFormGroup.controls['imgUrl'].invalid">
                 Image Link
                 <strong *ngIf="recipeFormGroup.controls['imgUrl'].hasError('required')">
                     is required!
@@ -76,7 +74,7 @@
 
         <!-- TODO: disable button -->
         <!-- <button [disabled]="recipeFormGroup.invalid" mat-flat-button color="primary">Add Recipe</button> -->
-        <button mat-flat-button color="primary">Add Recipe</button>
+        <button mat-flat-button color="primary">{{formBtnName}}</button>
 
     </div>
 </form>

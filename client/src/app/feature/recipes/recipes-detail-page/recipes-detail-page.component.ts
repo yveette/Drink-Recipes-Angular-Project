@@ -21,6 +21,8 @@ export class RecipesDetailPageComponent implements OnInit {
   user: IUser | undefined;
   isAuthor: boolean = false;
 
+  makeUpdate: boolean = false;
+
   constructor(private activatedRoute: ActivatedRoute,
     private recipeService: RecipeService,
     private authService: AuthService,
@@ -45,6 +47,10 @@ export class RecipesDetailPageComponent implements OnInit {
         this.isAuthor = false
       }
     })
+  }
+
+  updateRecipe(){
+    this.makeUpdate = true;
   }
 
 
