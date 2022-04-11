@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
+import { MessageBusService, MessageType } from 'src/app/core/message-bus.service';
 import { emailValidator } from '../util';
 
 @Component({
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router) { }
+    private router: Router,
+    private messageBus: MessageBusService) { }
 
   ngOnInit(): void {
   }
@@ -35,6 +37,11 @@ export class LoginComponent implements OnInit {
       next: user => {
         // console.log('User is ', user);
         this.router.navigate(['/home']);
+
+        this.messageBus.notifyForMessage({
+          text: 'User successfully logged in!',
+          type: MessageType.Success
+        })
       },
       complete: () => {
         // console.log('login stream completed');

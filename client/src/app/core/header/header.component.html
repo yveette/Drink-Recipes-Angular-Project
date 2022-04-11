@@ -21,4 +21,9 @@
             </ng-container>
         </div>
     </div>
+
+    <p *ngIf="errorMessage" [ngClass]="{'error-message' : isMessageError, 'success-message' : !isMessageError}"
+        class="notification">
+        {{errorMessage}}
+      </p>
 </header>

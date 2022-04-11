@@ -4,6 +4,7 @@ import { map, Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
 import { CommentService } from 'src/app/core/comment.service';
 import { IRecipe, IUser } from 'src/app/core/interfaces';
+import { MessageBusService, MessageType } from 'src/app/core/message-bus.service';
 import { RecipeService } from 'src/app/core/recipe.service';
 
 @Component({
@@ -24,7 +25,8 @@ export class RecipesNewCommentComponent implements OnInit {
   constructor(private router: Router,
     private commentService: CommentService,
     private recipeService: RecipeService,
-    private authService: AuthService
+    private authService: AuthService,
+    private messageBus: MessageBusService
   ) { }
 
   ngOnInit(): void {
@@ -41,6 +43,10 @@ export class RecipesNewCommentComponent implements OnInit {
       next: (comment) => {
         // console.log('returned comment: ', comment);
         // this.router.navigate(['/recipes', this.recipeId])
+        this.messageBus.notifyForMessage({
+          text: 'User successfully add new comment!',
+          type: MessageType.Success
+        })
       },
       error: (error) => {
         console.error(error);

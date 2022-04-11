@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageBusService, MessageType } from 'src/app/core/message-bus.service';
 import { RecipeService } from 'src/app/core/recipe.service';
 import { ingredientsValidator, urlValidator } from '../utils';
 
@@ -18,7 +19,11 @@ export class RecipesNewPageComponent implements OnInit {
     'ingredients': new FormControl('', [Validators.required, ingredientsValidator])
   })
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private recipeService: RecipeService) { }
+  constructor(private formBuilder: FormBuilder,
+    private router: Router,
+    private recipeService: RecipeService,
+    private messageBus: MessageBusService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -38,7 +43,12 @@ export class RecipesNewPageComponent implements OnInit {
     this.recipeService.addRecipe$(this.recipeFormGroup.value).subscribe({
       next: (recipe) => {
         // console.log(recipe);
-        this.router.navigate(['/recipes']);
+        // this.router.navigate(['/recipes']);
+
+        this.messageBus.notifyForMessage({
+          text: 'User successfully create new recipe!',
+          type: MessageType.Success
+        })
       },
       error: (error) => {
         console.error(error);
