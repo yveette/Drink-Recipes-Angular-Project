@@ -95,7 +95,6 @@ function editRecipe(req, res, next) {
         .catch(next);
 }
 
-//TODO: improve delete
 function deleteRecipe(req, res, next) {
     const { recipeId } = req.params;
     const { _id: userId } = req.user;
@@ -103,7 +102,7 @@ function deleteRecipe(req, res, next) {
     Promise.all([
         recipeModel.findOneAndDelete({ _id: recipeId, userId }),
         userModel.findOneAndUpdate({ _id: userId }, { $pull: { recipes: recipeId } }),
-        commentModel.deleteMany({ _id: recipeId }),
+        commentModel.deleteMany({ recipeId: recipeId }),
     ])
         .then(([deletedOne, _, __]) => {
             if (deletedOne) {

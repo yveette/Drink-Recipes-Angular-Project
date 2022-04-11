@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map, Observable, tap } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
 import { IRecipe, IUser } from 'src/app/core/interfaces';
@@ -21,7 +21,11 @@ export class RecipesDetailPageComponent implements OnInit {
   user: IUser | undefined;
   isAuthor: boolean = false;
 
-  constructor(private activatedRoute: ActivatedRoute, private recipeService: RecipeService, private authService: AuthService) { }
+  constructor(private activatedRoute: ActivatedRoute,
+    private recipeService: RecipeService,
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.currentUser$.subscribe((e) => this.user = e);
@@ -41,5 +45,14 @@ export class RecipesDetailPageComponent implements OnInit {
         this.isAuthor = false
       }
     })
+  }
+
+
+  deleteRecipeHandler() {
+    console.log('try to delete')
+    this.recipeService.deleteRecipe(this.recipeId)
+      .subscribe((res: any) => {
+        this.router.navigate(['/recipes']);
+      })
   }
 }

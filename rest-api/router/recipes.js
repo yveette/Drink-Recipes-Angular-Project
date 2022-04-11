@@ -13,7 +13,7 @@ router.put('/:recipeId', auth(), recipeController.likeRecipe);
 
 //TODO:
 // router.put('/:recipeId', auth(), recipeController.editRecipe);
-// router.delete('/:recipeId', auth(), recipeController.deleteRecipe);
+router.delete('/:recipeId', auth(), recipeController.deleteRecipe);
 
 router.get('/:recipeId/comments', recipeController.getCommentsOfRecipe);
 router.put('/:recipeId/comments/:commentId', auth(), commentController.editComment);

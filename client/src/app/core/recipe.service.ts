@@ -32,4 +32,8 @@ export class RecipeService {
   getAllRecipesByUser$(userId: string): Observable<IRecipe[]> {
     return this.http.get<IRecipe[]>(`${apiUrl}/users/profile/${userId}`, { withCredentials: true });
   }
+
+  deleteRecipe(id: string) {
+    return this.http.delete(`${apiUrl}/recipes/${id}`, { withCredentials: true });
+  }
 }
