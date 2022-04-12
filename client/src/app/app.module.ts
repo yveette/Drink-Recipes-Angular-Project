@@ -3,20 +3,18 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-// import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
 import { FooterComponent } from './core/footer/footer.component';
 import { HeaderComponent } from './core/header/header.component';
 import { PagesModule } from './feature/pages/pages.module';
-import { RecipesModule } from './feature/recipes/recipes.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { UserService } from './core/user.service';
-// import { RecipeService } from './core/recipe.service';
-// import { CommentService } from './core/comment.service';
-// import { storageServiceProvider } from './core/storage.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { currentUserReducer, IRootState } from './+store';
 
 @NgModule({
   declarations: [
@@ -29,7 +27,14 @@ import { RouterModule } from '@angular/router';
     CoreModule.forRoot(),
     AppRoutingModule,
     PagesModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    StoreModule.forRoot<IRootState>({
+      currentUser: currentUserReducer,
+    }),
+    StoreDevtoolsModule.instrument({ 
+      maxAge: 25, 
+      logOnly: environment.production 
+    })
   ],
   providers: [
     {
