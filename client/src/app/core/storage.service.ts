@@ -8,7 +8,7 @@ interface IStorage {
 
 export class StorageService implements IStorage {
   setItem<T>(key: string, item: any): T { return item; }
-  getItem<T>(key: string): T | any { return null; }
+  getItem<T>(key: string): T { return null; }
 }
 
 export function storageFactory(platformId: string): any {

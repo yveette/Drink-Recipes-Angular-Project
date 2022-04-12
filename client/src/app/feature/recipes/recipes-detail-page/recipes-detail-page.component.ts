@@ -15,10 +15,10 @@ export class RecipesDetailPageComponent implements OnInit {
   recipe: IRecipe;
   recipeId: string;
 
-  currentUser$: Observable<IUser | undefined> = this.authService.currentUser$;
+  currentUser$: Observable<IUser> = this.authService.currentUser$;
   isLoggedIn$ = this.currentUser$.pipe(map(user => !!user));
 
-  user: IUser | undefined;
+  user: IUser;
   isAuthor: boolean = false;
 
   makeUpdate: boolean = false;

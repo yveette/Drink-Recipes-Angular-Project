@@ -19,7 +19,7 @@ export class RecipesNewCommentComponent implements OnInit {
 
   comments: any[];
 
-  currentUser$: Observable<IUser | undefined> = this.authService.currentUser$;
+  currentUser$: Observable<IUser> = this.authService.currentUser$;
   isLoggedIn$ = this.currentUser$.pipe(map(user => !!user));
 
   constructor(private router: Router,

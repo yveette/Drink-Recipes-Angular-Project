@@ -12,7 +12,7 @@ import { MessageBusService, MessageType } from '../message-bus.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  currentUser$: Observable<IUser | undefined> = this.authService.currentUser$;
+  currentUser$: Observable<IUser> = this.authService.currentUser$;
   isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn$;
 
   errorMessage: string;

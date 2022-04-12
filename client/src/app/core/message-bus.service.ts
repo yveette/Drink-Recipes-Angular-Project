@@ -13,7 +13,7 @@ export enum MessageType {
 })
 export class MessageBusService {
 
-  private messageQue$ = new Subject<Message | undefined>();
+  private messageQue$ = new Subject<Message>();
 
   onNewMessage$ = this.messageQue$.asObservable();
 
