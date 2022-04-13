@@ -1,16 +1,12 @@
 footer {
-    background: #446620;
-    color: white;
+    background: #104c88;
     text-align: center;
     padding: 12px 0;
-    position: fixed;
     bottom: 0;
     width: 100%;
 }
 
-footer p {
-  margin: 0;
-  padding: 0;
+footer div {
   font-size: 14px;
-  text-align: center;
+  color: #a3ccf4;
 } 

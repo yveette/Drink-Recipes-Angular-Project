@@ -1,11 +1,11 @@
 .topnav {
-  background-color: #74A044;
+  background-color: #4899e9;
   overflow: hidden;
 }
 
 .topnav a {
   float: left;
-  color: #f2f2f2;
+  color: black;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -13,13 +13,21 @@
 }
 
 .topnav a:hover {
-  background-color: #a1c27e;
-  color: black;
+  border-radius: 15px 50px;
+  background-color: #0a335b;
+  color: white;
+  
 }
 
 .topnav a.home {
-  background-color: #4a751d;
+  border-radius: 15px 50px;
+  background-color: #104c88;
   color: white;
+}
+
+.topnav a.home:hover{
+  border-radius: 15px 50px;
+  background-color: #0a335b;
 }
 
 .topnav-right {
