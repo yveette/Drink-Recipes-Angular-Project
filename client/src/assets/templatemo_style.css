@@ -108,7 +108,7 @@ ul.nav li, .portfolio-group .detail h3, .templatemo_form button {
 }
 
 p { line-height: 1.8em; }
-a { color: black; }
+a { color: #0a335b; }
 i {	color: #909090; }
 footer {
 	margin-top: 10px;
@@ -190,7 +190,7 @@ p.justify { text-align: justify; }
 	width:100%;
 	height:100%;	
 	position:absolute;
-	background-color: rgba(255, 255, 255, 0.7);
+	background-color: #cde1f6;
 	box-shadow: 5px 10px 10px -5px rgba(0,0,0,0.5);
 }
 .portfolio-group .detail h3 {
@@ -215,7 +215,10 @@ p.justify { text-align: justify; }
 	-ms-box-shadow: 1px 1px 1px rgba(51, 51, 51, 0.44);
 	box-shadow: 1px 1px 1px rgba(51, 51, 51, 0.44);
 }
-.portfolio-item .btn:hover { background-color: #ddd; }
+.portfolio-item .btn:hover { 
+	background-color: #0a335b; 
+	color: white;
+}
 .pagination { width: 100%; }
 .pagination li {
 	width: 30px;

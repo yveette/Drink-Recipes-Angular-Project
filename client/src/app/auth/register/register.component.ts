@@ -12,7 +12,7 @@ import { emailValidator, passwordMatch } from '../util';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
+  errorMessage: string = '';
   passwordControl = new FormControl(null, [Validators.required, Validators.minLength(5)]);
 
   get passwordsGroup(): FormGroup {
@@ -39,6 +39,8 @@ export class RegisterComponent implements OnInit {
   }
 
   handleRegister() {
+    this.errorMessage = '';
+
     // console.log(this.registerFormGroup.value);
     const { username, email, passwords } = this.registerFormGroup.value;
 
@@ -50,14 +52,22 @@ export class RegisterComponent implements OnInit {
 
     // send body to Back-end
     // console.log(body);
-    this.authService.register$(body).subscribe(() => {
-      this.router.navigate(['/home']);
+    this.authService.register$(body).subscribe({
+      next: user => {
+        this.router.navigate(['/home']);
 
-      this.messageBus.notifyForMessage({
-        text: 'User successfully register!',
-        type: MessageType.Success
-      })
+        this.messageBus.notifyForMessage({
+          text: 'User successfully register!',
+          type: MessageType.Success
+        })
+      },
+      complete: () => {
+        // console.log('register stream completed');
+      },
+      error: (err) => {
+        // console.log('Error is ', err.error.message)
+        this.errorMessage = err.error.message;
+      }
     })
   }
-
 }

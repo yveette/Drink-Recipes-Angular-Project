@@ -7,7 +7,8 @@
 }
 
 .welcome h3 {
-    background-color: #74A044;
+    background-color: #104C88;
+    color: white;
     border-radius: 0.3em;
     padding: 0.3em 1em;
 }
@@ -21,7 +22,7 @@
 .welcome a {
     color: white;
     text-decoration: none;
-    background-color: #8baa69;
+    background-color: #4798E8;
     border: none;
     border-radius: 0.3em;
     padding: 0.5em 5.2em;
@@ -30,7 +31,7 @@
 
 .welcome a:hover {
     cursor: pointer;
-    background-color: #74A044;
+    background-color: #1565B5;
 }
 
 .welcome ul {
