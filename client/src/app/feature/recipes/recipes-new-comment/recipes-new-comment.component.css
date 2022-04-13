@@ -2,13 +2,12 @@ body {
     margin-top: 20px;
 }
 
-/* .row{
-    margin: auto;
-} */
+.container{
+    padding: 0;
+}
 
 .content-item {
     margin: auto;
-    width: 80%;
     padding: 30px 0;
     background-color: #FFFFFF;
 }
@@ -32,8 +31,6 @@ body {
     font-size: 20px;
     color: #555555;
     margin: 10px 0 15px;
-    padding-left: 10%;
-    /* padding:0; */
 }
 
 .content-headline {
@@ -86,7 +83,6 @@ body {
 #comments form fieldset {
     float:  none;
     margin: auto;
-    width: 80%;
     clear: left;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -94,28 +90,25 @@ body {
 }
 
 legend {
-    background-color: #4A751D;
+    background-color: #75B1ED;
     color: #fff;
     padding: 3px 6px;
     width: auto;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: calc(50%);
+    transform: translateX(-50%);
 }
 
 #comments form textarea {
-    width: 80%;
-    height: 150px;
+    height: 120px;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    width: 135%;
 }
 
 #comments .media {
     border-top: 1px dashed #DDDDDD;
     padding: 20px 0;
     margin: auto;
-    width: 80%;
-    background-color: #bdd2a667;
+    background-color: #d1e8fc;
 }
 
 #comments .media>.pull-left {
@@ -157,7 +150,7 @@ legend {
 }
 
 #comments .media-detail li {
-    color: #AAAAAA;
+    color: #4E749B;
     font-size: 12px;
     padding-right: 10px;
     font-weight: 600;
@@ -173,7 +166,28 @@ legend {
 }
 
 #comments .media-detail li i {
-    color: #666666;
+    color: #0A335B;
     font-size: 15px;
     margin-right: 10px;
+}
+
+.media-body h4{
+    color:#0A335B;
+    font-weight: 600;
+}
+
+.row div h3:first-of-type{
+    color: #0A335B;
+    font-weight: 600;
+}
+
+h3{
+    text-align: center;
+}
+
+
+span{
+    color:#0A335B;
+    font-weight: 600;
+    font-style: italic;
 }

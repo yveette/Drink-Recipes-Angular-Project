@@ -1,6 +1,6 @@
 .templatemo-detail{
-    background-color: #73a04479;
-    width: 80%;
+    background-color: #EBF5FE;
+    /* width: 80%; */
     margin: auto;
 }
 
@@ -9,7 +9,7 @@
 }
 
 h1{
-    color: #446620;
+    color: #104C88;
     font-weight: bold;
 }
 
@@ -19,7 +19,7 @@ h1{
 }
 
 .subtitle{
-    color: #446620;
+    color: #104C88;
 }
 
 .right{

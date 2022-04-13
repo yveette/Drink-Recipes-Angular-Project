@@ -4,7 +4,7 @@
             <div>
                 <form *ngIf="(isLoggedIn$ | async)">
                     <fieldset>
-                        <legend >New Comment</legend>
+                        <legend>New Comment</legend>
                         <div class="row">
                             <div class="form-group col-xs-12 col-sm-9 col-lg-10">
                                 <textarea #comment class="form-control" id="message" placeholder="Your message"
@@ -14,7 +14,7 @@
                     </fieldset>
                     <div class="btn">
                         <button type="reset" (click)="submitComment(comment.value)"
-                        class="btn btn-primary">Submit</button>
+                            class="btn btn-primary">Submit Comment</button>
                     </div>
                 </form>
 
@@ -23,12 +23,12 @@
 
                 <ng-container *ngIf="comments">
                     <h3>{{recipe.comments.length}} Comments</h3>
-                    
+
                     <!-- COMMENT 1 - START -->
                     <div class="media" *ngFor="let comment of comments">
                         <div class="media-body">
                             <h4 class="media-heading">{{comment.userId.username}}</h4>
-                            <p>Comment: {{comment.text}}</p>
+                            <p><span>Comment: </span>{{comment.text}}</p>
                             <div class="one-line">
                                 <ul class="list-unstyled list-inline media-detail pull-left">
                                     <li><i class="fa fa-calendar"></i>{{(comment.created_at | date: 'medium')}}</li>
