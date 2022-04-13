@@ -10,6 +10,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { StoreModule } from '@ngrx/store';
+import { IAuthState, loginReducer, profileReducer } from './+store';
+import { RecipesListItemComponent } from '../feature/recipes/recipes-list-item/recipes-list-item.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,11 @@ import { MatButtonModule } from '@angular/material/button';
     MatSelectModule,
     MatButtonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forFeature<IAuthState>('auth', {
+      profile: profileReducer,
+      login: loginReducer
+    })
   ]
 })
 export class AuthModule { }

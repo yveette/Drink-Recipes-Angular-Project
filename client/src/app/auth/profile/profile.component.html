@@ -1,76 +1,79 @@
-<h4>User Info:</h4>
-<div class="container mt-5 d-flex justify-content-center">
-    <div class="card p-3">
-        <div class="d-flex align-items-center">
-            <div class="image"> <img src="https://cdn.pixabay.com/photo/2017/08/03/21/48/drinks-2578446_960_720.jpg"
-                    class="rounded" width="250" height="200"> </div>
-            <div class="ml-3 w-100">
-                <h5 class="mb-0 mt-0"><strong>Username: </strong></h5> <span>{{currentUser.username}}</span>
-                <h5 class="mb-0 mt-0"><strong>Email: </strong></h5><span>{{currentUser.email}}</span>
-                <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
-                    <div class="d-flex flex-column"> <span class="articles">Recipes</span> <span
-                            class="number1">{{currentUser.recipes.length}}</span> </div>
-                    <div class="d-flex flex-column"> <span class="followers">Comments</span> <span
-                            class="number2">{{currentUser.comments.length}}</span> </div>
-                    <!-- <div class="d-flex flex-column"> <span class="rating">Rating</span> <span class="number3">8.9</span> </div> -->
+<ng-container *ngIf="(currentUser$ | async) as currentUser">
+    <h4>User Info:</h4>
+
+    <ng-container *ngIf="!(isInEditMode$ | async )">
+        <div class="container mt-5 d-flex justify-content-center">
+            <div class="card p-3">
+                <div class="d-flex align-items-center">
+                    <div class="image"> <img
+                            src="https://cdn.pixabay.com/photo/2017/08/03/21/48/drinks-2578446_960_720.jpg"
+                            class="rounded" width="250" height="200"> </div>
+                    <div class="ml-3 w-100">
+                        <h5 class="mb-0 mt-0"><strong>Username: </strong></h5> <span>{{currentUser.username}}</span>
+                        <h5 class="mb-0 mt-0"><strong>Email: </strong></h5><span>{{currentUser.email}}</span>
+                        <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                            <div class="d-flex flex-column"> <span class="articles">Recipes</span> <span
+                                    class="number1">{{currentUser.recipes.length}}</span> </div>
+                            <div class="d-flex flex-column"> <span class="followers">Comments</span> <span
+                                    class="number2">{{currentUser.comments.length}}</span> </div>
+                        </div>
+                        <div class="button mt-2 d-flex flex-row align-items-center">
+                            <button (click)="enterEditMode(currentUser)"
+                                class="btn btn-sm btn-outline-primary w-100">Edit</button>
+                            <button (click)="showUserRecipes(currentUser)" class="btn btn-sm btn-primary w-100 ml-2">
+                                My recipes</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="button mt-2 d-flex flex-row align-items-center">
-                    <button (click)="enterEditMode()" class="btn btn-sm btn-outline-primary w-100">Edit</button>
-                    <button (click)="showUserRecipes()" class="btn btn-sm btn-primary w-100 ml-2">
-                        My recipes</button>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="(isInEditMode$ | async )">
+        <div class="container mt-5 d-flex justify-content-center">
+            <div class="card p-3">
+                <div class="d-flex align-items-center">
+                    <div class="image"> <img
+                            src="https://cdn.pixabay.com/photo/2017/08/03/21/48/drinks-2578446_960_720.jpg"
+                            class="rounded" width="250" height="200"> </div>
+                    <div class="ml-3 w-100">
+                        <form #editProfileForm="ngForm" (ngSubmit)="updateProfile()">
+                            <h5 class="mb-0 mt-0"><strong>Username: </strong></h5>
+                            <input #username="ngModel" type="text" name="username" ngModel required minlength="5"
+                                id="username" [class.input-error]="username.touched && username.invalid">
+                            <h5 class="mb-0 mt-0"><strong>Email: </strong></h5>
+                            <input #email="ngModel" [class.input-error]="email.touched && email.invalid" type="email"
+                                name="email" id="email" ngModel required emailValidator>
+                        </form>
+                        <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                            <div class="d-flex flex-column"> <span class="articles">Recipes</span> <span
+                                    class="number1">{{currentUser.recipes.length}}</span> </div>
+                            <div class="d-flex flex-column"> <span class="followers">Comments</span> <span
+                                    class="number2">{{currentUser.comments.length}}</span> </div>
+                        </div>
+                        <div class="button mt-2 d-flex flex-row align-items-center">
+                            <button (click)="exitEditMode()"
+                                class="btn btn-sm btn-outline-primary w-100">Cancel</button>
+                            <button (click)="exitEditMode()" [disabled]="editProfileForm.invalid"
+                                class="btn btn-sm btn-primary w-100 ml-2">
+                                Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <div *ngIf="isShowRecipes">
+        <div *ngFor="let recipe of userRecipes">
+            <div class="container mt-2">
+                <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                    <div class="d-flex flex-column"> <span class="articles">Recipe:</span> <span
+                            class="number1">{{recipe.recipeName}}</span> </div>
+                    <div class="d-flex flex-column"> <button class="btn btn-sm btn-outline-primary"
+                            [routerLink]="['/recipes', recipe._id]">Details</button> </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-
-
-<h3>User Info:</h3>
-<ng-container *ngIf="!!currentUser">
-    <ng-container *ngIf="!isInEditMode">
-        <div class="flex">
-            <p>Username: </p>
-            <p>{{currentUser.username}}</p>
-        </div>
-        <div class="flex">
-            <p>Email: </p>
-            <p>{{currentUser.email}}</p>
-        </div>
-        <div class="flex">
-            <p>Recipes: </p>
-            <p>{{currentUser.recipes.length}}</p>
-        </div>
-        <div class="flex">
-            <p>Comments: </p>
-            <p>{{currentUser.comments.length}}</p>
-        </div>
-        <button (click)="enterEditMode()" class="edit-button">Edit</button>
-    </ng-container>
 </ng-container>
-
-<ng-container *ngIf="isInEditMode">
-    <form #editProfileForm="ngForm" (ngSubmit)="updateProfile()">
-        <div class="flex">
-            <p>Username: </p>
-            <input type="text" name="username" ngModel required minlength="5" id="username" value="peter">
-        </div>
-        <div class="flex">
-            <p>Email: </p>
-            <input #email="ngModel" [class.input-error]="email.touched && email.invalid" type="email" name="email"
-                id="email" ngModel required emailValidator value="peter@gmail.com">
-        </div>
-        <button type="button" (click)="isInEditMode = false" class="red-button">Cancel</button>
-        <button [disabled]="editProfileForm.invalid" class="green-button">Save</button>
-    </form>
-</ng-container>
-
-
-<button (click)="showUserRecipes()">Show my recipes</button>
-
-
-<div *ngIf="isShowRecipes">
-    <div *ngFor="let recipe of userRecipes">
-        <p>{{recipe.recipeName}}</p>
-    </div>
-</div>

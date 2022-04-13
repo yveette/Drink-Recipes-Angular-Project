@@ -1,9 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable, tap } from 'rxjs';
 import { IRecipe, IUser } from 'src/app/core/interfaces';
 import { RecipeService } from 'src/app/core/recipe.service';
 import { UserService } from 'src/app/core/user.service';
+import { IAuthModuleState } from '../+store';
+import { enterEditMode, exitEditMode, profileLoaded } from '../+store/actions';
 
 @Component({
   selector: 'app-profile',
@@ -12,11 +16,15 @@ import { UserService } from 'src/app/core/user.service';
 })
 export class ProfileComponent implements OnInit {
 
-  @ViewChild('editProfileForm') editProfileForm!: NgForm;
+  @ViewChild('editProfileForm') editProfileForm: NgForm;
 
-  currentUser!: IUser;
+  
+  currentUser$: Observable<IUser> = this.store.select(state => state.auth.profile.currentProfile)
+  // or:
+  // currentUser: IUser;
+  // .pipe(tap(profile => this.currentUser = profile));
 
-  isInEditMode: boolean = false;
+  isInEditMode$: Observable<boolean> = this.store.select(state => state.auth.profile.isInEditMode);
 
   userRecipes: IRecipe[] = [];
 
@@ -25,14 +33,15 @@ export class ProfileComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private store: Store<IAuthModuleState>
   ) { }
 
 
   ngOnInit(): void {
     this.userService.getProfile$().subscribe({
       next: (user) => {
-        this.currentUser = user;
+        this.store.dispatch(profileLoaded({ profile: user }));
       },
       error: (error) => {
         this.router.navigate(['/login']);
@@ -40,20 +49,24 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-  enterEditMode(): void {
-    this.isInEditMode = true;
+  enterEditMode(currentUser: IUser): void {
+    this.store.dispatch(enterEditMode());
 
     setTimeout(() => {
       this.editProfileForm.form.patchValue({
-        email: this.currentUser.email,
-        username: this.currentUser.username
+        email: currentUser.email,
+        username: currentUser.username
       })
     });
   }
 
-  showUserRecipes() {
+  exitEditMode(): void {
+    this.store.dispatch(exitEditMode());
+  }
+
+  showUserRecipes(currentUser: IUser) {
     // console.log(this.currentUser._id)
-    this.recipeService.getAllRecipesByUser$(this.currentUser._id).subscribe({
+    this.recipeService.getAllRecipesByUser$(currentUser._id).subscribe({
       next: (recipes) => {
         // console.log(recipes)
         this.userRecipes = recipes;
@@ -68,7 +81,7 @@ export class ProfileComponent implements OnInit {
   updateProfile(): void {
     // console.log(this.editProfileForm.value);
     // TODO update profile
-    this.isInEditMode = false;
+    this.store.dispatch(exitEditMode());
   }
 
 }

@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
     this.errorMessage = '';
     // console.log(this.loginFormGroup.value);
 
-    this.errorMessage = '';
     this.authService.login$(this.loginFormGroup.value).subscribe({
       next: user => {
         // console.log('User is ', user);
