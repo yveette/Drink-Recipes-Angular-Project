@@ -26,8 +26,8 @@
                 <p>{{recipe.likes}}</p> -->
 
             <div *ngIf="isAuthor">
-                <button (click)="updateRecipe()">Edit</button>
-                <button (click)="deleteRecipeHandler()">Delete</button>
+                <button (click)="updateRecipe()" class="btn btn-light">Edit</button>
+                <button (click)="deleteRecipeHandler()" class="btn btn-light">Delete</button>
             </div>
         </div>
     </div>

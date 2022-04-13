@@ -198,7 +198,7 @@ p.justify { text-align: justify; }
 }
 .portfolio-group .detail p {
 	text-align: justify;
-	padding: 5px 20px;
+	padding: 0 20px;
 	line-height: 1.8em;
 }
 .portfolio-item { 
@@ -432,7 +432,7 @@ span.btn {
 	}
 	footer p {
 		float: right;
-		margin-bottom: 15px;
+		margin-bottom: 0;
 	}
 	.social { clear: both; }
 }

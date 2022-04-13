@@ -1,6 +1,6 @@
 <form class="login" [formGroup]="loginFormGroup" (ngSubmit)="handleLogin()">
     <div class="parent">
-        <h2>Login Form</h2>
+        <h2 class="text-primary">Login Form</h2>
 
         <p *ngIf="errorMessage" class="error">{{errorMessage}}</p>
 
@@ -39,11 +39,11 @@
             </mat-error>
         </mat-form-field>
 
-        <button [disabled]="loginFormGroup.invalid" mat-flat-button color="primary">Login</button>
+        <button [disabled]="loginFormGroup.invalid" class="btn btn-primary">Login</button>
 
         <p class="text-center">
             Don't have an account yet?
-            <a routerLink="/user/register">Sign Up</a>
+            <a routerLink="/user/register" class="link-primary">Sign Up</a>
         </p>
     </div>
 </form>

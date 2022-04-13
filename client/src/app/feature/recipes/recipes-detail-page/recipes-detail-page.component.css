@@ -16,14 +16,16 @@ h1{
 .justify{
     padding-top: 20px;
     height: auto;
-    /* height: 130px; */
 }
 
 .subtitle{
     color: #446620;
-    /* padding-top: 107px; */
 }
 
 .right{
     font-style: italic;
+}
+
+button{
+    margin: 0 5px;
 }

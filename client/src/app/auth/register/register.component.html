@@ -1,7 +1,9 @@
-<form class="login" [formGroup]="registerFormGroup" (ngSubmit)="handleRegister()">
+<form class="register" [formGroup]="registerFormGroup" (ngSubmit)="handleRegister()">
     <div class="parent">
-        <h2>Registration Form</h2>
-        <p>
+        <h2 class="text-primary">Registration Form</h2>
+
+        <p *ngIf="errorMessage" class="error">{{errorMessage}}</p>
+
             <mat-form-field appearance="outline">
                 <mat-label>Username</mat-label>
                 <input formControlName="username" matInput name="username" id="username" placeholder="peter">
@@ -19,9 +21,6 @@
                     </strong>
                 </mat-error>
             </mat-form-field>
-        </p>
-
-        <p>
             <mat-form-field appearance="outline">
                 <mat-label>Email</mat-label>
                 <input formControlName="email" matInput name="email" id="email" placeholder="peter@gmail.com">
@@ -38,7 +37,6 @@
                     </strong>
                 </mat-error>
             </mat-form-field>
-        </p>
 
         <div formGroupName="passwords" id="passwords">
             <p>
@@ -81,11 +79,11 @@
             </p>
         </div>
 
-        <button [disabled]="registerFormGroup.invalid" mat-flat-button color="primary">Create Profile</button>
+        <button [disabled]="registerFormGroup.invalid" class="btn btn-primary">Create Profile</button>
 
         <p class="text-center">
             Have an account?
-            <a routerLink="/user/login">Log In</a>
+            <a routerLink="/user/login" class="link-primary">Log In</a>
         </p>
     </div>
 </form>

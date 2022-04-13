@@ -1,10 +1,10 @@
 <section class="content-item" id="comments">
     <div class="container">
         <div class="row">
-            <div class="col-sm-8">
+            <div>
                 <form *ngIf="(isLoggedIn$ | async)">
                     <fieldset>
-                        <legend>New Comment</legend>
+                        <legend >New Comment</legend>
                         <div class="row">
                             <div class="form-group col-xs-12 col-sm-9 col-lg-10">
                                 <textarea #comment class="form-control" id="message" placeholder="Your message"
@@ -13,8 +13,8 @@
                         </div>
                     </fieldset>
                     <div class="btn">
-                        <button type="reset" (click)="submitComment(comment.value)" mat-flat-button
-                            color="primary">Submit</button>
+                        <button type="reset" (click)="submitComment(comment.value)"
+                        class="btn btn-primary">Submit</button>
                     </div>
                 </form>
 

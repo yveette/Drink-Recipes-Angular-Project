@@ -5,8 +5,13 @@
   flex-direction: column;
 }
 
+.register{
+  margin-top: 70px;
+}
+
 mat-form-field{
   /* width: 40%; */
+  width: 300px;
 }
 
 button{

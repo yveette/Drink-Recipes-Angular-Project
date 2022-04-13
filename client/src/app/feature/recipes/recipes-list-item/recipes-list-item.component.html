@@ -1,5 +1,5 @@
 <div class="portfolio-group">
-    <a class="portfolio-item" [routerLink]="['/recipes', recipe._id]">
+    <a class="portfolio-item link-dark" [routerLink]="['/recipes', recipe._id]">
         <img src="{{recipe.imgUrl}}" alt="image">
         <div class="detail">
             <h3>{{recipe.recipeName}}</h3>
@@ -9,7 +9,7 @@
             <p>Comments: {{recipe.comments.length}}</p>
             <p>Author: {{recipe.userId.username}}</p>
 
-            <span class="btn">Details</span>
+            <button class="btn" >Details</button>
         </div>
     </a>
 </div>
