@@ -2,7 +2,7 @@
     <div class="parent">
         <h2>Login Form</h2>
 
-        <p *ngIf="errorMessage" class="error">{{errorMessage}}</p>
+        <p *ngIf="(errorMessage$ | async) as errorMessage" class="error">{{errorMessage}}</p>
 
         <mat-form-field appearance="outline">
             <mat-label>Email</mat-label>
@@ -39,7 +39,7 @@
             </mat-error>
         </mat-form-field>
 
-        <button [disabled]="loginFormGroup.invalid" class="btn btn-primary">Login</button>
+        <button [disabled]="loginFormGroup.invalid || (isLoginPending$ | async)" class="btn btn-primary">Login</button>
 
         <p class="text-center">
             Don't have an account yet?

@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { ILoginPageState, IProfilePageState } from ".";
-import { enterEditMode, exitEditMode, profileLoaded } from "./actions";
+import { enterEditMode, exitEditMode, initializeLoginState, loginProcessError, profileLoaded, startLoginProcess } from "./actions";
 
 export const profileReducer = createReducer<IProfilePageState>(
     {
@@ -27,6 +27,28 @@ export const profileReducer = createReducer<IProfilePageState>(
     })
 )
 
+const loginInitialState = {
+    errorMessage: '',
+    isLoginPending: false,
+};
+
 export const loginReducer = createReducer<ILoginPageState>(
-    undefined
+    loginInitialState,
+    on(startLoginProcess, (state) => {
+        return {
+            ...state,
+            isLoginPending: true,
+            errorMessage: ''
+        }
+    }),
+    on(loginProcessError, (state, action) => {
+        return {
+            ...state,
+            isLoginPending: false,
+            errorMessage: action.errorMessage
+        }
+    }),
+    on(initializeLoginState, (state,) => {
+        return loginInitialState;
+    }),
 )

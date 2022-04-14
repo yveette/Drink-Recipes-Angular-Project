@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
 import { MessageBusService, MessageType } from 'src/app/core/message-bus.service';
+import { IAuthModuleState } from '../+store';
+import { initializeLoginState, loginProcessError, startLoginProcess } from '../+store/actions';
 import { emailValidator } from '../util';
 
 @Component({
@@ -12,7 +16,8 @@ import { emailValidator } from '../util';
 })
 export class LoginComponent implements OnInit {
 
-  errorMessage: string = '';
+  errorMessage$: Observable<string> = this.store.select(s => s.auth.login.errorMessage);
+  isLoginPending$: Observable<boolean> = this.store.select(s => s.auth.login.isLoginPending);
 
   loginFormGroup: FormGroup = this.formBuilder.group({
     'email': new FormControl('', [Validators.required, emailValidator]),
@@ -23,18 +28,19 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private messageBus: MessageBusService) { }
+    private messageBus: MessageBusService,
+    private store: Store<IAuthModuleState>
+  ) { }
 
   ngOnInit(): void {
+    this.store.dispatch(initializeLoginState());
   }
 
   handleLogin(): void {
-    this.errorMessage = '';
-    // console.log(this.loginFormGroup.value);
+    this.store.dispatch(startLoginProcess());
 
     this.authService.login$(this.loginFormGroup.value).subscribe({
       next: user => {
-        // console.log('User is ', user);
         this.router.navigate(['/home']);
 
         this.messageBus.notifyForMessage({
@@ -42,15 +48,9 @@ export class LoginComponent implements OnInit {
           type: MessageType.Success
         })
       },
-      complete: () => {
-        // console.log('login stream completed');
-      },
       error: (err) => {
-        // console.log('Error is ', err.error.message)
-        this.errorMessage = err.error.message;
+        this.store.dispatch(loginProcessError({ errorMessage: err.error.message }));
       }
     });
-
   }
-
 }

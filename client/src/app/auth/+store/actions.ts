@@ -8,3 +8,11 @@ export const profileLoaded = createAction(`${profileDomain} Profile Loaded`,
 
 export const enterEditMode = createAction(`${profileDomain} Enter Edit Mode`);
 export const exitEditMode = createAction(`${profileDomain} Exit Edit Mode`);
+
+const loginDomain = '[LoginComponent]';
+export const startLoginProcess = createAction(`${loginDomain} Start Login`);
+export const endLoginProcess = createAction(`${loginDomain} End Login`);
+export const loginProcessError = createAction(`${loginDomain} Login Error`,
+    props<{ errorMessage: string }>()
+);
+export const initializeLoginState = createAction(`${loginDomain} Initialize Login`);
