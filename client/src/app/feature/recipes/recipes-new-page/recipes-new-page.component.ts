@@ -52,35 +52,32 @@ export class RecipesNewPageComponent implements OnInit {
 
   handleCreateRecipe() {
 
+     // Transform ingridients to array
+     if (this.recipeFormGroup.value.ingredients.includes(', ')) {
+      this.recipeFormGroup.value.ingredients = this.recipeFormGroup.value.ingredients.split(', ');
+    }
+    this.recipeFormGroup.value.recipeName = this.recipeFormGroup.value.recipeName.trim();
+    this.recipeFormGroup.value.description = this.recipeFormGroup.value.description.trim();
+    this.recipeFormGroup.value.imgUrl = this.recipeFormGroup.value.imgUrl.trim();
+
+    // Editing mode
     if (this.makeUpdate) {
-      console.log('update');
-      console.log(this.recipeFormGroup.value);
-
-      // Transform ingridients to array
-      if (this.recipeFormGroup.value.ingredients.includes(', ')) {
-        this.recipeFormGroup.value.ingredients = this.recipeFormGroup.value.ingredients.split(', ');
-      }
-      this.recipeFormGroup.value.recipeName = this.recipeFormGroup.value.recipeName.trim();
-      this.recipeFormGroup.value.description = this.recipeFormGroup.value.description.trim();
-      this.recipeFormGroup.value.imgUrl = this.recipeFormGroup.value.imgUrl.trim();
-
-      console.log("after", this.recipeFormGroup.value);
+      // console.log('update');
+      // console.log(this.recipeFormGroup.value);
 
       this.recipeService.updateRecipe$(this.recipeToUpdate._id, this.recipeFormGroup.value).subscribe({
         next: recipe => {
-          // console.log('User is ', user);
-          this.router.navigate(['/recipes', this.recipeToUpdate._id])
-            .then(() => {
-              window.location.reload();
-            })
+          // console.log(recipe);
+          this.navigateToRecipes();
+          // this.router.navigate(['/recipes', this.recipeToUpdate._id])
+          //   .then(() => {
+          //     window.location.reload();
+          //   })
 
           this.messageBus.notifyForMessage({
             text: 'User successfully updated recipe!',
             type: MessageType.Success
           })
-        },
-        complete: () => {
-          // console.log('update completed');
         },
         error: (err) => {
           console.log('Error is ', err.error.message)
@@ -88,32 +85,20 @@ export class RecipesNewPageComponent implements OnInit {
         }
 
       })
+
+      // Creating mode
     } else {
       // console.log('form: ', this.recipeFormGroup.value);
-
-      // Transform ingridients to array
-      if (this.recipeFormGroup.value.ingredients.includes(', ')) {
-        this.recipeFormGroup.value.ingredients = this.recipeFormGroup.value.ingredients.split(', ');
-      }
-      this.recipeFormGroup.value.recipeName = this.recipeFormGroup.value.recipeName.trim();
-      this.recipeFormGroup.value.description = this.recipeFormGroup.value.description.trim();
-      this.recipeFormGroup.value.imgUrl = this.recipeFormGroup.value.imgUrl.trim();
 
       this.recipeService.addRecipe$(this.recipeFormGroup.value).subscribe({
         next: (recipe) => {
           // console.log(recipe);
-          // this.router.navigate(['/recipes'])
-          //   .then(()=> {
-          //     window.location.reload();
-          //   })
+          this.navigateToRecipes();
 
           this.messageBus.notifyForMessage({
             text: 'User successfully create new recipe!',
             type: MessageType.Success
           })
-        },
-        complete: () => {
-
         },
         error: (error) => {
           console.error(error);
@@ -122,7 +107,7 @@ export class RecipesNewPageComponent implements OnInit {
     }
   }
 
-  navigateToHome(): void {
-    this.router.navigate(['/home']);
+  navigateToRecipes(): void {
+    this.router.navigate(['/recipes'])
   }
 }

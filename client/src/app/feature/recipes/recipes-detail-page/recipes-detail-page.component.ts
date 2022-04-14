@@ -49,16 +49,18 @@ export class RecipesDetailPageComponent implements OnInit {
     })
   }
 
-  updateRecipe(){
+  updateRecipe() {
     this.makeUpdate = true;
   }
 
 
   deleteRecipeHandler() {
-    console.log('try to delete')
-    this.recipeService.deleteRecipe(this.recipeId)
-      .subscribe((res: any) => {
-        this.router.navigate(['/recipes']);
-      })
+    // console.log('try to delete')
+    if (window.confirm(`Are you sure you want to delete - ${this.recipe.recipeName} ?`)) {
+      this.recipeService.deleteRecipe(this.recipeId)
+        .subscribe((res: any) => {
+          this.router.navigate(['/recipes']);
+        })
+    }
   }
 }

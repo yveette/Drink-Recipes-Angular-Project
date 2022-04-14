@@ -3,6 +3,7 @@ const { newComment } = require('./commentController');
 
 function getRecipes(req, res, next) {
     recipeModel.find()
+        .sort({ 'created_at': -1 })
         .populate({
             path: 'userId',
             select: ['email', 'username'],
@@ -57,11 +58,10 @@ function createRecipe(req, res, next) {
 
     recipeModel.create({ recipeName, ingredients, description, imgUrl, userId, likes: [] })
         .then(recipe => {
-            newComment(commentText, userId, recipe._id)
-                .then(([_, updatedRecipe]) => res.status(200).json(updatedRecipe));
             Promise.all([
                 userModel.updateOne({ _id: userId }, { $push: { recipes: recipe._id } }),
             ]);
+            res.status(200).json(recipe);
         })
         .catch(next);
 }

@@ -57,24 +57,26 @@
         <mat-form-field appearance="outline">
             <mat-label>Ingredients</mat-label>
             <textarea formControlName="ingredients" type="text" matInput name="ingredients" id="ingredients"
-                placeholder="eggs 3, salt, pepper">
+                placeholder="ice, 1 lemon, whiskey 50ml, ...">
             </textarea>
             <mat-error
                 *ngIf="recipeFormGroup.controls['ingredients'].touched && recipeFormGroup.controls['ingredients'].invalid">
-                Description
+                Ingredients
                 <strong *ngIf="recipeFormGroup.controls['ingredients'].hasError('required')">
                     is required!
                 </strong>
                 <strong
                     *ngIf="!recipeFormGroup.controls['ingredients'].hasError('required') && recipeFormGroup.controls['ingredients'].hasError('ingredients')">
-                    must be valid!
+                    must be valid! Write ingredients separated with comma and space!
+                </strong>
+                <strong
+                    *ngIf="!recipeFormGroup.controls['ingredients'].hasError('required') && recipeFormGroup.controls['ingredients'].hasError('ingredientsLength')">
+                    must be at least two!
                 </strong>
             </mat-error>
         </mat-form-field>
 
-        <!-- TODO: disable button -->
-        <!-- <button [disabled]="recipeFormGroup.invalid" mat-flat-button color="primary">Add Recipe</button> -->
-        <button [disabled]="recipeFormGroup.invalid" class="btn btn-primary">{{formBtnName}}</button>
+        <button [disabled]="recipeFormGroup.invalid || recipeFormGroup.untouched" class="btn btn-primary">{{formBtnName}}</button>
 
     </div>
 </form>
