@@ -6,6 +6,8 @@ const { recipeController, commentController } = require('../controllers');
 
 router.get('/', recipeController.getRecipes);
 router.post('/', auth(), recipeController.createRecipe);
+router.get('/likes', recipeController.getRecipesByLikes);
+router.get('/comments', recipeController.getRecipesByComments);
 
 router.get('/:recipeId', recipeController.getRecipe);
 router.post('/:recipeId', auth(), commentController.createComment);

@@ -25,6 +25,14 @@ export class RecipeService {
     return this.http.get<IRecipe>(`${apiUrl}/recipes/${id}`);
   }
 
+  loadMostLiked$(): Observable<IRecipe> {
+    return this.http.get<IRecipe>(`${apiUrl}/recipes/likes`);
+  }
+
+  loadMostComment$(): Observable<IRecipe> {
+    return this.http.get<IRecipe>(`${apiUrl}/recipes/comments`);
+  }
+
   addRecipe$(body: CreateRecipeDto): Observable<IRecipe> {
     return this.http.post<IRecipe>(`${apiUrl}/recipes`, body, { withCredentials: true });
   }

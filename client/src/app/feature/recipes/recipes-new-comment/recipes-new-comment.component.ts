@@ -43,6 +43,10 @@ export class RecipesNewCommentComponent implements OnInit {
       next: (comment) => {
         // console.log('returned comment: ', comment);
         // this.router.navigate(['/recipes', this.recipeId])
+
+        this.router.navigateByUrl(`/RefreshComponent`, { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/recipes', this.recipeId]);
+        });
         this.messageBus.notifyForMessage({
           text: 'User successfully add new comment!',
           type: MessageType.Success

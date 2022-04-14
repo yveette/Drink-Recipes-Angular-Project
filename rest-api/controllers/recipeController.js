@@ -12,6 +12,30 @@ function getRecipes(req, res, next) {
         .catch(next);
 }
 
+function getRecipesByLikes(req, res, next) {
+    recipeModel.find()
+        .sort({ 'likes.length': -1 })
+        .limit(3)
+        .populate({
+            path: 'userId',
+            select: ['email', 'username'],
+        })
+        .then(recipes => res.json(recipes))
+        .catch(next);
+}
+
+function getRecipesByComments(req, res, next) {
+     recipeModel.find()
+        .sort({ 'comments.length': -1 })
+        .limit(3)
+        .populate({
+            path: 'userId',
+            select: ['email', 'username'],
+        })
+        .then(recipes => res.json(recipes))
+        .catch(next);
+}
+
 function getRecipe(req, res, next) {
     const { recipeId } = req.params;
 
@@ -116,6 +140,8 @@ function deleteRecipe(req, res, next) {
 module.exports = {
     getRecipes,
     getRecipe,
+    getRecipesByLikes,
+    getRecipesByComments,
     createRecipe,
     likeRecipe,
     editRecipe,
