@@ -67,10 +67,22 @@ function likeComment(req, res, next) {
         .catch(next);
 }
 
+function dislikeComment(req, res, next) {
+    const { commentId } = req.params;
+    const { _id: userId } = req.user;
+
+    // console.log('like');
+
+    commentModel.updateOne({ _id: commentId }, { $pull: { likes: userId } }, { new: true })
+        .then(() => res.status(200).json({ message: 'Disliked successful!' }))
+        .catch(next);
+}
+
 module.exports = {
     newComment,
     createComment,
     editComment,
     deleteComment,
     likeComment,
+    dislikeComment
 };

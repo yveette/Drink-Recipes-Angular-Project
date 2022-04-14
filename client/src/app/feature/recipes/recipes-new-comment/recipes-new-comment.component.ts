@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
 import { CommentService } from 'src/app/core/comment.service';
-import { IRecipe, IUser } from 'src/app/core/interfaces';
+import { IComment, IRecipe, IUser } from 'src/app/core/interfaces';
 import { MessageBusService, MessageType } from 'src/app/core/message-bus.service';
 import { RecipeService } from 'src/app/core/recipe.service';
 
@@ -18,9 +18,13 @@ export class RecipesNewCommentComponent implements OnInit {
   @Input() recipe: IRecipe;
 
   comments: any[];
+  canLikeComment: boolean;
 
   currentUser$: Observable<IUser> = this.authService.currentUser$;
   isLoggedIn$ = this.currentUser$.pipe(map(user => !!user));
+  canLikeComment$: Observable<boolean>;
+
+  currUser?: IUser;
 
   constructor(private router: Router,
     private commentService: CommentService,
@@ -33,7 +37,15 @@ export class RecipesNewCommentComponent implements OnInit {
 
     this.recipeService.loadRecipeById(this.recipeId).subscribe(recipe => {
       this.comments = recipe.comments;
-      // console.log('comments are: ',recipe.comments)
+
+      // get user and check if user._id includes in each comment likes array
+      this.comments.forEach(c => {
+        this.currentUser$.subscribe(user => this.currUser = user);
+        this.canLikeComment = c.likes.includes(this.currUser._id)
+        c.canLike = c.likes.includes(this.currUser._id)
+      })
+
+      // console.log(this.comments);
     })
   }
 
@@ -55,6 +67,27 @@ export class RecipesNewCommentComponent implements OnInit {
       error: (error) => {
         console.error(error);
       }
+    })
+  }
+
+  likeComment(comment: IComment | any) {
+    console.log('like comment', comment)
+    this.commentService.likeComment(comment.recipeId, comment._id).subscribe(res => {
+      // console.log(res.message)
+      this.messageBus.notifyForMessage({
+        text: res.message,
+        type: MessageType.Success
+      })
+    })
+  }
+
+  dislikeComment(comment) {
+    console.log('dislike comment');
+    this.commentService.dislikeComment(comment.recipeId, comment._id).subscribe(res => {
+      this.messageBus.notifyForMessage({
+        text: res.message,
+        type: MessageType.Success
+      })
     })
   }
 

@@ -15,4 +15,12 @@ export class CommentService {
     // console.log(text)
     return this.http.post<IComment>(`${apiUrl}/recipes/${id}`, { text }, { withCredentials: true });
   }
+
+  likeComment(recipeId: string, commentId: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`${apiUrl}/recipes/${recipeId}/comments/${commentId}/like`, {}, { withCredentials: true });
+  }
+
+  dislikeComment(recipeId: string, commentId: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`${apiUrl}/recipes/${recipeId}/comments/${commentId}/dislike`, {}, { withCredentials: true });
+  }
 }

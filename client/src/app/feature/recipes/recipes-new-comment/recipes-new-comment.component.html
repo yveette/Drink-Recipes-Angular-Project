@@ -6,15 +6,15 @@
                     <fieldset>
                         <legend>New Comment</legend>
                         <div class="row">
-                            <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                            <div class="form-group col-xs-12 col-sm-12 col-lg-10">
                                 <textarea #comment class="form-control" id="message" placeholder="Your message"
                                     required=""></textarea>
                             </div>
                         </div>
                     </fieldset>
                     <div class="btn">
-                        <button type="reset" (click)="submitComment(comment.value)"
-                            class="btn btn-primary">Submit Comment</button>
+                        <button type="reset" (click)="submitComment(comment.value)" class="btn btn-primary">Submit
+                            Comment</button>
                     </div>
                 </form>
 
@@ -37,8 +37,19 @@
                                 </ul>
                                 <ul *ngIf="(isLoggedIn$ | async)"
                                     class="list-unstyled list-inline media-detail pull-right">
-                                    <li class=""><a href="">Like</a></li>
-                                    <li class=""><a href="">Dislike</a></li>
+                                    <li (click)="likeComment(comment)">
+                                        <button [disabled]="comment.canLike" class="btn btn-outline-primary btn-sm">
+                                            Like
+                                        </button>
+                                    </li>
+                                    <li (click)="dislikeComment(comment)">
+                                        <button [disabled]="!comment.canLike" class="btn btn-outline-primary btn-sm">
+                                            Dislike
+                                        </button>
+                                    </li>
+                                    <li *ngIf="comment.canLike">
+                                        You already liked it! But you can dislike it.
+                                    </li>
                                 </ul>
                             </div>
                         </div>

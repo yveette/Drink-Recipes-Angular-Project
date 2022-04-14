@@ -17,7 +17,9 @@ router.put('/:recipeId/edit', auth(), recipeController.editRecipe);
 router.delete('/:recipeId', auth(), recipeController.deleteRecipe);
 
 router.get('/:recipeId/comments', recipeController.getCommentsOfRecipe);
-router.put('/:recipeId/comments/:commentId', auth(), commentController.editComment);
-router.delete('/:recipeId/comments/:commentId', auth(), commentController.deleteComment);
+router.post('/:recipeId/comments/:commentId/like', auth(), commentController.likeComment);
+router.post('/:recipeId/comments/:commentId/dislike', auth(), commentController.dislikeComment);
+// router.put('/:recipeId/comments/:commentId', auth(), commentController.editComment);
+// router.delete('/:recipeId/comments/:commentId', auth(), commentController.deleteComment);
 
 module.exports = router;
