@@ -4,10 +4,10 @@
         <div class="detail">
             <h3>{{recipe.recipeName}}</h3>
             <!-- TODO: Use pipe for description -->
-            <p>{{(recipe.description | slice:0:25)}}...</p>
-            <p>Likes: {{recipe.likes.length}}</p>
-            <p>Comments: {{recipe.comments.length}}</p>
-            <p>Author: {{recipe.userId.username}}</p>
+            <!-- <p>{{(recipe.description | slice:0:25)}}...</p> -->
+            <p><strong>Likes: </strong> {{recipe.likes.length}}</p>
+            <p><strong>Comments: </strong> {{recipe.comments.length}}</p>
+            <p><strong>Author: </strong> {{recipe.userId.username}}</p>
 
             <button class="btn" >Details</button>
         </div>

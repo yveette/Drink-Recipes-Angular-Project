@@ -17,17 +17,18 @@
             <p class="right">author: {{recipe.userId.username}}</p>
             <br>
 
-            <h2 class="subtitle">Ingredients: </h2>
+            <h2 class="subtitle"><i class="fa-solid fa-plus"></i>Ingredients: </h2>
             <ul class="checkmark pad-left" *ngFor="let ingr of recipe.ingredients">
                 <li>{{ingr}}</li>
             </ul>
-            <!-- TODO: get correct comments and likes, not id -->
-            <!-- <p>{{recipe.comments}}</p>
-                <p>{{recipe.likes}}</p> -->
 
             <div *ngIf="isAuthor">
                 <button (click)="updateRecipe()" class="btn btn-primary">Edit</button>
-                <button (click)="deleteRecipeHandler()" class="btn btn-primary">Delete</button>
+                <button (click)="deleteRecipeHandler()" class="btn btn-outline-primary">Delete</button>
+            </div>
+            <div *ngIf="!isAuthor">
+                <button (click)="likeRecipe()" class="btn btn-primary">Like</button>
+                <button (click)="dislikeRecipe()" class="btn btn-outline-primary">Dislike</button>
             </div>
         </div>
     </div>

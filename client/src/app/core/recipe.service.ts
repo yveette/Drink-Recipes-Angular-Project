@@ -48,4 +48,12 @@ export class RecipeService {
   deleteRecipe(id: string) {
     return this.http.delete(`${apiUrl}/recipes/${id}`, { withCredentials: true });
   }
+
+  likeRecipe(recipeId: string): Observable<IRecipe> {
+    return this.http.put<IRecipe>(`${apiUrl}/recipes/${recipeId}/like`, {}, { withCredentials: true });
+  }
+
+  dislikeRecipe(recipeId: string): Observable<IRecipe> {
+    return this.http.put<IRecipe>(`${apiUrl}/recipes/${recipeId}/dislike`, {}, { withCredentials: true });
+  }
 }

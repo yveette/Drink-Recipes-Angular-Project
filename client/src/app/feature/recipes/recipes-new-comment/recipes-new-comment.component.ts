@@ -79,6 +79,10 @@ export class RecipesNewCommentComponent implements OnInit {
         type: MessageType.Success
       })
     })
+
+    this.router.navigateByUrl(`/RefreshComponent`, { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/recipes', this.recipeId]);
+    });
   }
 
   dislikeComment(comment) {
@@ -89,6 +93,10 @@ export class RecipesNewCommentComponent implements OnInit {
         type: MessageType.Success
       })
     })
+
+    this.router.navigateByUrl(`/RefreshComponent`, { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/recipes', this.recipeId]);
+    });
   }
 
 }

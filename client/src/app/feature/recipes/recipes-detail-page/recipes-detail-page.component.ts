@@ -17,6 +17,7 @@ export class RecipesDetailPageComponent implements OnInit {
 
   currentUser$: Observable<IUser> = this.authService.currentUser$;
   isLoggedIn$ = this.currentUser$.pipe(map(user => !!user));
+  // TODO: implement canLike and disabled buttons
 
   user: IUser;
   isAuthor: boolean = false;
@@ -62,5 +63,30 @@ export class RecipesDetailPageComponent implements OnInit {
           this.router.navigate(['/recipes']);
         })
     }
+  }
+
+  likeRecipe() {
+    // console.log('like recipe');
+
+    this.recipeService.likeRecipe(this.recipeId).subscribe( updatedRecipe=> {
+      
+      this.recipe = updatedRecipe;
+    })
+
+    this.router.navigateByUrl(`/RefreshComponent`, { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/recipes', this.recipeId]);
+    });
+  }
+
+  dislikeRecipe() {
+    // console.log('dislike recipe');
+
+    this.recipeService.dislikeRecipe(this.recipeId).subscribe( updatedRecipe=> {
+      this.recipe = updatedRecipe;
+    })
+
+    this.router.navigateByUrl(`/RefreshComponent`, { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/recipes', this.recipeId]);
+    });
   }
 }

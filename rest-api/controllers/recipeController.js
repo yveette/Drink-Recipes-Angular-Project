@@ -100,6 +100,17 @@ function likeRecipe(req, res, next) {
         .catch(next);
 }
 
+function dislikeRecipe(req, res, next) {
+    const recipeId = req.params.recipeId;
+    const { _id: userId } = req.user;
+
+    recipeModel.findByIdAndUpdate({ _id: recipeId, userId }, { $pull: { likes: userId } }, { new: true })
+        .then(updatedRecipe => {
+            res.status(200).json(updatedRecipe);
+        })
+        .catch(next);
+}
+
 function editRecipe(req, res, next) {
     const { recipeId } = req.params;
     const { recipeName, ingredients, description, imgUrl } = req.body;
@@ -144,6 +155,7 @@ module.exports = {
     getRecipesByComments,
     createRecipe,
     likeRecipe,
+    dislikeRecipe,
     editRecipe,
     deleteRecipe,
     getCommentsOfRecipe,
