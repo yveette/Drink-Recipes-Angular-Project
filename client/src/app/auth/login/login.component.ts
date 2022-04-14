@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/auth.service';
 import { MessageBusService, MessageType } from 'src/app/core/message-bus.service';
 import { IAuthModuleState } from '../+store';
 import { initializeLoginState, loginProcessError, startLoginProcess } from '../+store/actions';
+import { loginErrorMessageSelector, loginPendingSelector } from '../+store/selectors';
 import { emailValidator } from '../util';
 
 @Component({
@@ -16,8 +17,8 @@ import { emailValidator } from '../util';
 })
 export class LoginComponent implements OnInit {
 
-  errorMessage$: Observable<string> = this.store.select(s => s.auth.login.errorMessage);
-  isLoginPending$: Observable<boolean> = this.store.select(s => s.auth.login.isLoginPending);
+  errorMessage$: Observable<string> = this.store.select(loginErrorMessageSelector);
+  isLoginPending$: Observable<boolean> = this.store.select(loginPendingSelector);
 
   loginFormGroup: FormGroup = this.formBuilder.group({
     'email': new FormControl('', [Validators.required, emailValidator]),
