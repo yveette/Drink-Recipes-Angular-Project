@@ -97,7 +97,13 @@ function editProfileInfo(req, res, next) {
     const { username, email } = req.body;
 
     userModel.findOneAndUpdate({ _id: userId }, { username, email }, { runValidators: true, new: true })
-        .then(x => { res.status(200).json(x); })
+        .then(updatedUser => {
+            if (updatedUser) {
+                res.status(200).json(updatedUser);
+            } else {
+                res.status(401).json({ message: 'Not allowed!' });
+            }
+        })
         .catch(next);
 }
 

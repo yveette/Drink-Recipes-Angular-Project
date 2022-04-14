@@ -45,23 +45,38 @@
                             <h5 class="mb-0 mt-0"><strong>Username: </strong></h5>
                             <input #username="ngModel" type="text" name="username" ngModel required minlength="5"
                                 id="username" [class.input-error]="username.touched && username.invalid">
+                            <!-- Validation -->
+                            <p *ngIf="editProfileForm.controls['username'].hasError('required')" class="error">
+                                Username is required!
+                            </p>
+                            <p *ngIf="editProfileForm.controls['username'].hasError('minlength')" class="error">
+                                Username must be at least 5 characters!
+                            </p>
+
                             <h5 class="mb-0 mt-0"><strong>Email: </strong></h5>
                             <input #email="ngModel" [class.input-error]="email.touched && email.invalid" type="email"
-                                name="email" id="email" ngModel required emailValidator>
+                                name="email" id="email" ngModel required email>
+                            <!-- Validation -->
+                            <p *ngIf="editProfileForm.controls['email'].hasError('required')" class="error">
+                                Email is required!
+                            </p>
+                            <p *ngIf="editProfileForm.controls['email'].hasError('email')" class="error">
+                                Email is not valid!
+                            </p>
+
+                            <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                                <div class="d-flex flex-column"> <span class="articles">Recipes</span> <span
+                                        class="number1">{{currentUser.recipes.length}}</span> </div>
+                                <div class="d-flex flex-column"> <span class="followers">Comments</span> <span
+                                        class="number2">{{currentUser.comments.length}}</span> </div>
+                            </div>
+                            <div class="button mt-2 d-flex flex-row align-items-center">
+                                <button (click)="exitEditMode()"
+                                    class="btn btn-sm btn-outline-primary w-100">Cancel</button>
+                                <button [disabled]="editProfileForm.invalid" class="btn btn-sm btn-primary w-100 ml-2">
+                                    Save</button>
+                            </div>
                         </form>
-                        <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
-                            <div class="d-flex flex-column"> <span class="articles">Recipes</span> <span
-                                    class="number1">{{currentUser.recipes.length}}</span> </div>
-                            <div class="d-flex flex-column"> <span class="followers">Comments</span> <span
-                                    class="number2">{{currentUser.comments.length}}</span> </div>
-                        </div>
-                        <div class="button mt-2 d-flex flex-row align-items-center">
-                            <button (click)="exitEditMode()"
-                                class="btn btn-sm btn-outline-primary w-100">Cancel</button>
-                            <button (click)="exitEditMode()" [disabled]="editProfileForm.invalid"
-                                class="btn btn-sm btn-primary w-100 ml-2">
-                                Save</button>
-                        </div>
                     </div>
                 </div>
             </div>

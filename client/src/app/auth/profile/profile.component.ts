@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -7,7 +7,7 @@ import { IRecipe, IUser } from 'src/app/core/interfaces';
 import { RecipeService } from 'src/app/core/recipe.service';
 import { UserService } from 'src/app/core/user.service';
 import { IAuthModuleState } from '../+store';
-import { enterEditMode, exitEditMode, profileLoaded, profilePageInitialize } from '../+store/actions';
+import { enterEditMode, exitEditMode, profileLoaded, profilePageInitialize, updateProfileStarted } from '../+store/actions';
 
 @Component({
   selector: 'app-profile',
@@ -89,7 +89,14 @@ export class ProfileComponent implements OnInit {
 
   updateProfile(): void {
     // console.log(this.editProfileForm.value);
-    // TODO update profile
+
+    this.store.dispatch(updateProfileStarted({
+      user: {
+        username: this.editProfileForm.value.username,
+        email: this.editProfileForm.value.email
+      }
+    }));
+
     this.store.dispatch(exitEditMode());
   }
 }

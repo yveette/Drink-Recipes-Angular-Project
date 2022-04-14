@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Actions, createEffect } from "@ngrx/effects";
+import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, filter, map, mergeMap, of } from "rxjs";
+import { login } from "src/app/+store";
 import { UserService } from "src/app/core/user.service";
-import { profileLoaded, profileLoadError, profilePageInitialize } from "./actions";
+import { profileLoaded, profileLoadError, profilePageInitialize, updateProfileCompleted, updateProfileError, updateProfileStarted } from "./actions";
 
 @Injectable()
 export class ProfileEffects {
@@ -19,4 +20,21 @@ export class ProfileEffects {
             catchError(() => of(profileLoadError()))
         )
     )
+
+    onProfileUpdateStarted$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(updateProfileStarted),
+            mergeMap(action => this.userService.updateProfile$(action.user)
+                .pipe(
+                    map(result => updateProfileCompleted({ updatedUser: result })),
+                    catchError(err => of(updateProfileError({ errorMessage: err.error.message })))
+                )
+            )
+        )
+    )
+
+    onProfileUpdateCompleted$ = createEffect(() => this.actions$.pipe(
+        ofType(updateProfileCompleted),
+        map(result => login({ user: result.updatedUser }))
+    ))
 }
