@@ -2,7 +2,7 @@
     <h4>User Info:</h4>
 
     <ng-container *ngIf="!(isInEditMode$ | async )">
-        <div class="container mt-5 d-flex justify-content-center">
+        <div class="container mt-3 pb-5 d-flex justify-content-center">
             <div class="card p-3">
                 <div class="d-flex align-items-center">
                     <div class="image"> <img
@@ -20,8 +20,12 @@
                         <div class="button mt-2 d-flex flex-row align-items-center">
                             <button (click)="enterEditMode(currentUser)"
                                 class="btn btn-sm btn-outline-primary w-100">Edit</button>
-                            <button (click)="showUserRecipes(currentUser)" class="btn btn-sm btn-primary w-100 ml-2">
+                            <button *ngIf="!isShowRecipes" (click)="showUserRecipes(currentUser)"
+                                class="btn btn-sm btn-primary w-100 ml-2">
                                 My recipes</button>
+                            <button *ngIf="isShowRecipes" (click)="showUserRecipes(currentUser)"
+                                class="btn btn-sm btn-primary w-100 ml-2">
+                                Hide recipes</button>
                         </div>
                     </div>
                 </div>
@@ -30,7 +34,7 @@
     </ng-container>
 
     <ng-container *ngIf="(isInEditMode$ | async )">
-        <div class="container mt-5 d-flex justify-content-center">
+        <div class="container mt-5 pb-5 d-flex justify-content-center">
             <div class="card p-3">
                 <div class="d-flex align-items-center">
                     <div class="image"> <img
@@ -64,7 +68,7 @@
         </div>
     </ng-container>
 
-    <div *ngIf="isShowRecipes">
+    <div *ngIf="isShowRecipes" class="pb-5">
         <div *ngFor="let recipe of userRecipes">
             <div class="container mt-2">
                 <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">

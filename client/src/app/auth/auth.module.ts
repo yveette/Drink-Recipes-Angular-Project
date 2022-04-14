@@ -13,6 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { StoreModule } from '@ngrx/store';
 import { IAuthState, loginReducer, profileReducer } from './+store';
 import { RecipesListItemComponent } from '../feature/recipes/recipes-list-item/recipes-list-item.component';
+import { EffectsModule } from '@ngrx/effects';
+import { ProfileEffects } from './+store/profile.effects';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { RecipesListItemComponent } from '../feature/recipes/recipes-list-item/r
     StoreModule.forFeature<IAuthState>('auth', {
       profile: profileReducer,
       login: loginReducer
-    })
+    }),
+    EffectsModule.forFeature([ProfileEffects])
   ]
 })
 export class AuthModule { }

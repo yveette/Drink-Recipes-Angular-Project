@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -7,7 +7,7 @@ import { IRecipe, IUser } from 'src/app/core/interfaces';
 import { RecipeService } from 'src/app/core/recipe.service';
 import { UserService } from 'src/app/core/user.service';
 import { IAuthModuleState } from '../+store';
-import { enterEditMode, exitEditMode, profileLoaded } from '../+store/actions';
+import { enterEditMode, exitEditMode, profileLoaded, profilePageInitialize } from '../+store/actions';
 
 @Component({
   selector: 'app-profile',
@@ -18,13 +18,14 @@ export class ProfileComponent implements OnInit {
 
   @ViewChild('editProfileForm') editProfileForm: NgForm;
 
-  
   currentUser$: Observable<IUser> = this.store.select(state => state.auth.profile.currentProfile)
   // or:
   // currentUser: IUser;
   // .pipe(tap(profile => this.currentUser = profile));
 
   isInEditMode$: Observable<boolean> = this.store.select(state => state.auth.profile.isInEditMode);
+
+  hasErrorHappened: Observable<boolean> = this.store.select(state => state.auth.profile.errorHappened);
 
   userRecipes: IRecipe[] = [];
 
@@ -39,14 +40,22 @@ export class ProfileComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.userService.getProfile$().subscribe({
-      next: (user) => {
-        this.store.dispatch(profileLoaded({ profile: user }));
-      },
-      error: (error) => {
+    this.store.dispatch(profilePageInitialize());
+
+    this.hasErrorHappened.subscribe((hasError) => {
+      if (hasError) {
         this.router.navigate(['/login']);
       }
     })
+
+    // this.userService.getProfile$().subscribe({
+    //   next: (user) => {
+    //     this.store.dispatch(profileLoaded({ profile: user }));
+    //   },
+    //   error: (error) => {
+    //     this.router.navigate(['/login']);
+    //   }
+    // })
   }
 
   enterEditMode(currentUser: IUser): void {
@@ -70,7 +79,7 @@ export class ProfileComponent implements OnInit {
       next: (recipes) => {
         // console.log(recipes)
         this.userRecipes = recipes;
-        this.isShowRecipes = true;
+        this.isShowRecipes = !this.isShowRecipes;
       },
       error: (error) => {
         console.log(error);
@@ -83,5 +92,4 @@ export class ProfileComponent implements OnInit {
     // TODO update profile
     this.store.dispatch(exitEditMode());
   }
-
 }

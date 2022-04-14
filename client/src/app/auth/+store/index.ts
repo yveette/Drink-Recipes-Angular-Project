@@ -11,6 +11,7 @@ export interface ILoginPageState {
 export interface IProfilePageState {
     currentProfile: IUser;
     isInEditMode: boolean;
+    errorHappened: boolean;
 }
 
 export interface IAuthState {

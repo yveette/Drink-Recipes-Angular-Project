@@ -1,11 +1,12 @@
 import { createReducer, on } from "@ngrx/store";
 import { ILoginPageState, IProfilePageState } from ".";
-import { enterEditMode, exitEditMode, initializeLoginState, loginProcessError, profileLoaded, startLoginProcess } from "./actions";
+import { enterEditMode, exitEditMode, initializeLoginState, loginProcessError, profileLoaded, profileLoadError, startLoginProcess } from "./actions";
 
 export const profileReducer = createReducer<IProfilePageState>(
     {
         currentProfile: undefined,
         isInEditMode: false,
+        errorHappened: false,
     },
     on(profileLoaded, (state, action) => {
         return {
@@ -23,6 +24,12 @@ export const profileReducer = createReducer<IProfilePageState>(
         return {
             ...state,
             isInEditMode: false,
+        }
+    }),
+    on(profileLoadError, (state) => {
+        return {
+            ...state,
+            errorHappened: true,
         }
     })
 )
