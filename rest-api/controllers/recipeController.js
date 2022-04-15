@@ -27,7 +27,7 @@ function getRecipesByLikes(req, res, next) {
 }
 
 function getRecipesByComments(req, res, next) {
-     recipeModel.find()
+    recipeModel.find()
         .sort({ 'comments.length': -1 })
         .limit(3)
         .populate({
@@ -61,6 +61,14 @@ function getAllRecipesByUser(req, res, next) {
     const { userId } = req.params;
 
     recipeModel.find({ userId })
+        .then(recipes => res.json(recipes))
+        .catch(next);
+}
+
+function getAllLikedRecipesByUser(req, res, next) {
+    const { userId } = req.params;
+
+    recipeModel.find({ likes: userId })
         .then(recipes => res.json(recipes))
         .catch(next);
 }
@@ -161,5 +169,6 @@ module.exports = {
     editRecipe,
     deleteRecipe,
     getCommentsOfRecipe,
-    getAllRecipesByUser
+    getAllRecipesByUser,
+    getAllLikedRecipesByUser
 };

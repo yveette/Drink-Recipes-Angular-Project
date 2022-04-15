@@ -31,6 +31,9 @@ export class ProfileComponent implements OnInit {
 
   isShowRecipes: boolean = false;
 
+  isLikedShow: boolean = false;
+  likedRecipes: IRecipe[] = [];
+
   constructor(
     private userService: UserService,
     private router: Router,
@@ -98,5 +101,19 @@ export class ProfileComponent implements OnInit {
     }));
 
     this.store.dispatch(exitEditMode());
+  }
+
+  showLikedByUserRecipes(currentUser: IUser) {
+
+    this.recipeService.getAllLikedByUser$(currentUser._id).subscribe({
+      next: (recipes) => {
+        console.log(recipes)
+        this.likedRecipes = recipes;
+        this.isLikedShow = !this.isLikedShow;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
 }

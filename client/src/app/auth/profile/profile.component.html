@@ -2,7 +2,7 @@
     <h4>User Info:</h4>
 
     <ng-container *ngIf="!(isInEditMode$ | async )">
-        <div class="container mt-3 pb-5 d-flex justify-content-center">
+        <div class="container mt-3 pb-3 d-flex justify-content-center">
             <div class="card p-3">
                 <div class="d-flex align-items-center">
                     <div class="image"> <img
@@ -19,11 +19,19 @@
                         </div>
                         <div class="button mt-2 d-flex flex-row align-items-center">
                             <button (click)="enterEditMode(currentUser)"
-                                class="btn btn-sm btn-outline-primary w-100">Edit</button>
+                                class="btn btn-sm btn-outline-primary w-100 btnedit">Edit</button>
                             <button *ngIf="!isShowRecipes" (click)="showUserRecipes(currentUser)"
                                 class="btn btn-sm btn-primary w-100 ml-2">
                                 My recipes</button>
                             <button *ngIf="isShowRecipes" (click)="showUserRecipes(currentUser)"
+                                class="btn btn-sm btn-primary w-100 ml-2">
+                                Hide recipes</button>
+
+                            <!-- *ngIf="isLikedShow" -->
+                            <button *ngIf="!isLikedShow" (click)="showLikedByUserRecipes(currentUser)"
+                                class="btn btn-sm btn-primary w-100 ml-2">
+                                Liked recipes</button>
+                            <button *ngIf="isLikedShow" (click)="showLikedByUserRecipes(currentUser)"
                                 class="btn btn-sm btn-primary w-100 ml-2">
                                 Hide recipes</button>
                         </div>
@@ -89,10 +97,29 @@
                 <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
                     <div class="d-flex flex-column"> <span class="articles">Recipe:</span> <span
                             class="number1">{{recipe.recipeName}}</span> </div>
-                    <div class="d-flex flex-column"> <button class="btn btn-sm btn-outline-primary"
+                    <div class="d-flex flex-column mt-1"> <button class="btn btn-sm btn-outline-primary"
                             [routerLink]="['/recipes', recipe._id]">Details</button> </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <ng-container *ngIf="isLikedShow">
+
+        <h4>Liked Recipes:</h4>
+
+        <div class="pb-5">
+            <div *ngFor="let recipe of likedRecipes">
+                <div class="container mt-2">
+                    <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                        <div class="d-flex flex-column"> <span class="articles">Recipe:</span> <span
+                                class="number1">{{recipe.recipeName}}</span> </div>
+                        <div class="d-flex flex-column mt-1"> <button class="btn btn-sm btn-outline-primary"
+                                [routerLink]="['/recipes', recipe._id]">Details</button> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
 </ng-container>

@@ -11,6 +11,7 @@ Angular web application for reading and creating recipes, also like and comment 
 
 - Angular 13.2.7
 - Angular Material
+<!-- - Angular animations -->
 - NgRx / store
 - NgRx / effects
 - Bootstrap
@@ -29,7 +30,7 @@ Angular web application for reading and creating recipes, also like and comment 
 ## Permissions:
 
 | **Permissions for recipes**    | User | Guest | 
-| ----------------------------   | ---- | ----  |
+| :--------------------------    | :---: | :---: |
 | View Home page                 | ✅   | ✅   |
 | View About page                | ✅   | ✅   |
 | See All Recipes                | ✅   | ✅   |
@@ -41,15 +42,11 @@ Angular web application for reading and creating recipes, also like and comment 
 | See likes of a Recipe          | ✅   | ✅   |
 | Like a Recipe                  | ✅   | ❌   |
 | Dislike a Recipe * if liked    | ✅   | ❌   |
-
-| **Permissions for comments**   | User | Guest | 
 | See all Comments               | ✅   | ✅   |
 | See all Comments likes         | ✅   | ✅   |
 | Create a Comment               | ✅   | ❌   |
 | Like a Comment                 | ✅   | ❌   |
 | Dislike a Comment * if liked   | ✅   | ❌   |
-
-| **Permissions for users/guests**  | User | Guest | 
 | Login                          | ❌   | ✅   |
 | Register                       | ❌   | ✅   |
 | Logout                         | ✅   | ❌   |

@@ -40,6 +40,10 @@ export class RecipeService {
     return this.http.get<IRecipe[]>(`${apiUrl}/users/profile/${userId}`, { withCredentials: true });
   }
 
+  getAllLikedByUser$(userId: string): Observable<IRecipe[]> {
+    return this.http.get<IRecipe[]>(`${apiUrl}/users/profile/${userId}/liked`, { withCredentials: true });
+  }
+
   updateRecipe$(id: string, body: CreateRecipeDto): Observable<IRecipe> {
     return this.http.put<IRecipe>(`${apiUrl}/recipes/${id}/edit`, body, { withCredentials: true });
   }
