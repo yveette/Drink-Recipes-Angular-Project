@@ -2,7 +2,9 @@ const { recipeModel, userModel, commentModel } = require('../models');
 const { newComment } = require('./commentController');
 
 function getRecipes(req, res, next) {
-    recipeModel.find()
+    const title = req.query.title || '';
+
+    recipeModel.find({ recipeName: { $regex: title, $options: 'i' } })
         .sort({ 'created_at': -1 })
         .populate({
             path: 'userId',

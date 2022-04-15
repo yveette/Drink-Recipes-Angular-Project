@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -15,10 +15,9 @@ export class RecipeService {
 
   constructor(private http: HttpClient) { }
 
-  loadRecipeList(): Observable<IRecipe[]> {
+  loadRecipeList(searchTerm: string = ""): Observable<IRecipe[]> {
     return this.http.get<IRecipe[]>(
-      `${apiUrl}/recipes`
-    );
+      `${apiUrl}/recipes?title=${searchTerm}`, { params: new HttpParams({ fromObject: {} }) });
   }
 
   loadRecipeById(id: string): Observable<IRecipe> {
