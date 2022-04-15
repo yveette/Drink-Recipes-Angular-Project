@@ -67,7 +67,7 @@
                 </strong>
                 <strong
                     *ngIf="!recipeFormGroup.controls['ingredients'].hasError('required') && recipeFormGroup.controls['ingredients'].hasError('ingredients')">
-                    must be valid! Write ingredients separated with comma and space!
+                    must be valid! Write ingredients separated with comma and new line!
                 </strong>
                 <strong
                     *ngIf="!recipeFormGroup.controls['ingredients'].hasError('required') && recipeFormGroup.controls['ingredients'].hasError('ingredientsLength')">

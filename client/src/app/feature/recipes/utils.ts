@@ -8,7 +8,7 @@ export function ingredientsValidator(control: AbstractControl): ValidationErrors
     }
 
     if (value.length > 1 && value.includes(',')) {
-        const arr = value.split(', ');
+        const arr = value.split(',\n');
         if (arr.length > 1) {
             return null;
         }

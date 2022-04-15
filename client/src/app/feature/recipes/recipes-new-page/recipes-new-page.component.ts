@@ -42,7 +42,7 @@ export class RecipesNewPageComponent implements OnInit {
       this.recipeFormGroup.controls['recipeName'].setValue(this.recipeToUpdate.recipeName);
       this.recipeFormGroup.controls['imgUrl'].setValue(this.recipeToUpdate.imgUrl);
       this.recipeFormGroup.controls['description'].setValue(this.recipeToUpdate.description);
-      this.recipeFormGroup.controls['ingredients'].setValue(this.recipeToUpdate.ingredients.join(', '));
+      this.recipeFormGroup.controls['ingredients'].setValue(this.recipeToUpdate.ingredients.join(',\n'));
     } else {
       this.formName = 'Add New Recipe';
       this.formBtnName = 'Add Recipe';
@@ -53,8 +53,8 @@ export class RecipesNewPageComponent implements OnInit {
   handleCreateRecipe() {
 
      // Transform ingridients to array
-     if (this.recipeFormGroup.value.ingredients.includes(', ')) {
-      this.recipeFormGroup.value.ingredients = this.recipeFormGroup.value.ingredients.split(', ');
+     if (this.recipeFormGroup.value.ingredients.includes(',\n')) {
+      this.recipeFormGroup.value.ingredients = this.recipeFormGroup.value.ingredients.split(',\n');
     }
     this.recipeFormGroup.value.recipeName = this.recipeFormGroup.value.recipeName.trim();
     this.recipeFormGroup.value.description = this.recipeFormGroup.value.description.trim();
