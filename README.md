@@ -28,9 +28,7 @@ Angular web application for reading and creating recipes, also like and comment 
 
 ## Permissions:
 
-### For Recipes: 
-
-| **Permissions**                | User | Guest | 
+| **Permissions for recipes**    | User | Guest | 
 | ----------------------------   | ---- | ----  |
 | View Home page                 | ✅   | ✅   |
 | View About page                | ✅   | ✅   |
@@ -44,18 +42,14 @@ Angular web application for reading and creating recipes, also like and comment 
 | Like a Recipe                  | ✅   | ❌   |
 | Dislike a Recipe * if liked    | ✅   | ❌   |
 
-### For Comments of a recipe: 
-
-| **Permissions**                | User | Guest | 
+| **Permissions for comments**   | User | Guest | 
 | See all Comments               | ✅   | ✅   |
 | See all Comments likes         | ✅   | ✅   |
 | Create a Comment               | ✅   | ❌   |
 | Like a Comment                 | ✅   | ❌   |
 | Dislike a Comment * if liked   | ✅   | ❌   |
 
-### Users/Guests: 
-
-| **Permissions**                | User | Guest | 
+| **Permissions for users/guests**  | User | Guest | 
 | Login                          | ❌   | ✅   |
 | Register                       | ❌   | ✅   |
 | Logout                         | ✅   | ❌   |
