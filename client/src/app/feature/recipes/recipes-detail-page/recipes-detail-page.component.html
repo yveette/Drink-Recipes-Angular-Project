@@ -7,31 +7,45 @@
 
         <div class="about-detail">
             <h1>{{recipe.recipeName}}</h1>
-            <p class="right date">date: {{recipe.created_at | date:'medium'}}</p>
+            <p class="right date"><i class="fa fa-calendar icons"></i> date: {{recipe.created_at | date:'medium'}}</p>
             <br>
 
             <img src="{{recipe.imgUrl}}" alt="image" class="left shadow">
             <p class="justify">{{recipe.description}}</p>
 
             <br>
-            <p class="right">author: {{recipe.userId.username}}</p>
+            <p class="right"><i class="fas fa-user icons"></i> author: {{recipe.userId.username}}</p>
             <br>
 
-            <h2 class="subtitle"><i class="fa-solid fa-plus"></i>Ingredients: </h2>
+            <h2 class="subtitle">
+                <i class="fa fa-solid fa-list fa-sm icons"></i>
+                Ingredients:
+            </h2>
             <ul class="checkmark pad-left" *ngFor="let ingr of recipe.ingredients">
                 <li>{{ingr}}</li>
             </ul>
 
-            <div *ngIf="isAuthor">
-                <button (click)="updateRecipe()" class="btn btn-primary">Edit</button>
-                <button (click)="deleteRecipeHandler()" class="btn btn-outline-primary">Delete</button>
-            </div>
-            <div *ngIf="!isAuthor">
-                <button (click)="likeRecipe()" class="btn btn-primary">Like</button>
-                <button (click)="dislikeRecipe()" class="btn btn-outline-primary">Dislike</button>
+            <div class="buttons">
+                <div class="btnlike">
+                    <i class="fa fa-thumbs-up fa-lg icons"></i>{{recipe.likes.length}}
+                </div>
+                <ng-container *ngIf="(isLoggedIn$ | async)">
+                    <div *ngIf="isUserAuthor">
+                        <button (click)="updateRecipe()" class="btn btn-primary">Edit</button>
+                        <button (click)="deleteRecipeHandler()" class="btn btn-outline-primary">Delete</button>
+                    </div>
+                    <div *ngIf="!isUserAuthor">
+                        <button [disabled]="!canLike" (click)="likeRecipe()" class="btn btn-primary">Like</button>
+                        <button [disabled]="canLike" (click)="dislikeRecipe()"
+                            class="btn btn-outline-primary">Dislike</button>
+                    </div>
+                    <div *ngIf="!canLike" class="hint">
+                        You already liked it! But you can dislike it.
+                    </div>
+                </ng-container>
             </div>
         </div>
     </div>
 
-    <app-recipes-new-comment [recipeId]="recipeId" [recipe]="recipe"></app-recipes-new-comment>
+    <app-recipes-new-comment [recipeId]="recipe._id" [recipe]="recipe"></app-recipes-new-comment>
 </ng-container>

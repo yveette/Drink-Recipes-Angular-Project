@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, mergeMap, Observable, tap } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
 import { IRecipe, IUser } from 'src/app/core/interfaces';
 import { RecipeService } from 'src/app/core/recipe.service';
@@ -12,15 +12,13 @@ import { RecipeService } from 'src/app/core/recipe.service';
 })
 export class RecipesDetailPageComponent implements OnInit {
 
+  refreshRecipeRequest$ = new BehaviorSubject(undefined);
   recipe: IRecipe;
-  recipeId: string;
+  currentUser?: IUser;
 
-  currentUser$: Observable<IUser> = this.authService.currentUser$;
-  isLoggedIn$ = this.currentUser$.pipe(map(user => !!user));
-  // TODO: implement canLike and disabled buttons
-
-  user: IUser;
-  isAuthor: boolean = false;
+  isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn$;
+  canLike: boolean = false;
+  isUserAuthor: boolean = false;
 
   makeUpdate: boolean = false;
 
@@ -31,23 +29,23 @@ export class RecipesDetailPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.currentUser$.subscribe((e) => this.user = e);
-
-    this.activatedRoute.params.subscribe(params => {
-      this.recipeId = params['recipeId'];
-    })
-
-    this.recipeService.loadRecipeById(this.recipeId).subscribe(recipe => {
-      // console.log(this.recipeId);
-      // console.log(recipe)
+    combineLatest([
+      this.activatedRoute.params
+        .pipe(
+          mergeMap(params => {
+            const recipeId = params['recipeId'];
+            return this.refreshRecipeRequest$.pipe(mergeMap(() => this.recipeService.loadRecipeById(recipeId)));
+          })
+        ),
+      this.authService.currentUser$
+    ])
+    .subscribe(([recipe, user]) => {
+      this.currentUser = user;
       this.recipe = recipe;
-
-      if (this.user?._id == this.recipe.userId._id) {
-        this.isAuthor = true;
-      } else {
-        this.isAuthor = false
-      }
+      this.canLike = user && !this.recipe.likes.includes(user?._id);
+      this.isUserAuthor = user && this.recipe.userId._id == user._id;
     })
+
   }
 
   updateRecipe() {
@@ -58,7 +56,7 @@ export class RecipesDetailPageComponent implements OnInit {
   deleteRecipeHandler() {
     // console.log('try to delete')
     if (window.confirm(`Are you sure you want to delete - ${this.recipe.recipeName} ?`)) {
-      this.recipeService.deleteRecipe(this.recipeId)
+      this.recipeService.deleteRecipe(this.recipe._id)
         .subscribe((res: any) => {
           this.router.navigate(['/recipes']);
         })
@@ -68,25 +66,25 @@ export class RecipesDetailPageComponent implements OnInit {
   likeRecipe() {
     // console.log('like recipe');
 
-    this.recipeService.likeRecipe(this.recipeId).subscribe( updatedRecipe=> {
-      
+    this.recipeService.likeRecipe(this.recipe._id).subscribe(updatedRecipe => {
       this.recipe = updatedRecipe;
+      this.canLike = false;
     })
 
     this.router.navigateByUrl(`/RefreshComponent`, { skipLocationChange: true }).then(() => {
-      this.router.navigate(['/recipes', this.recipeId]);
+      this.router.navigate(['/recipes', this.recipe._id]);
     });
   }
 
   dislikeRecipe() {
     // console.log('dislike recipe');
 
-    this.recipeService.dislikeRecipe(this.recipeId).subscribe( updatedRecipe=> {
+    this.recipeService.dislikeRecipe(this.recipe._id).subscribe(updatedRecipe => {
       this.recipe = updatedRecipe;
     })
 
     this.router.navigateByUrl(`/RefreshComponent`, { skipLocationChange: true }).then(() => {
-      this.router.navigate(['/recipes', this.recipeId]);
+      this.router.navigate(['/recipes', this.recipe._id]);
     });
   }
 }

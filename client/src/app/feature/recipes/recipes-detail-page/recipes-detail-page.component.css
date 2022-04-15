@@ -29,3 +29,20 @@ h1{
 button{
     margin: 0 5px;
 }
+
+.buttons {
+    display: -webkit-inline-box;
+}
+
+.btnlike {
+    padding-right: 12px;
+}
+
+.icons {
+    color: #0A335B ;
+}
+
+.hint {
+    margin: auto;
+    color: #4E749B;
+}
