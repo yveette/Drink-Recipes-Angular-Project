@@ -74,36 +74,24 @@ export class RecipesDetailPageComponent implements OnInit {
   likeRecipe() {
     // console.log('like recipe');
 
-    this.recipeService.likeRecipe(this.recipe._id).subscribe(updatedRecipe => {
-      this.recipe = updatedRecipe;
-      this.canLike = false;
-    })
+    this.recipeService.likeRecipe(this.recipe._id)
+      .subscribe(() => this.refreshRecipeRequest$.next(undefined));
 
     this.messageBus.notifyForMessage({
       text: 'You liked this recipe!',
       type: MessageType.Success
     })
-
-    this.router.navigateByUrl(`/RefreshComponent`, { skipLocationChange: true }).then(() => {
-      this.router.navigate(['/recipes', this.recipe._id]);
-    });
   }
 
   dislikeRecipe() {
     // console.log('dislike recipe');
 
-    this.recipeService.dislikeRecipe(this.recipe._id).subscribe(updatedRecipe => {
-      this.recipe = updatedRecipe;
+    this.recipeService.dislikeRecipe(this.recipe._id)
+      .subscribe(() => this.refreshRecipeRequest$.next(undefined));
+
+    this.messageBus.notifyForMessage({
+      text: 'You disliked this recipe!',
+      type: MessageType.Success
     })
-
-    this.router.navigateByUrl(`/RefreshComponent`, { skipLocationChange: true }).then(() => {
-
-      this.messageBus.notifyForMessage({
-        text: 'You disliked this recipe!',
-        type: MessageType.Success
-      })
-
-      this.router.navigate(['/recipes', this.recipe._id]);
-    });
   }
 }
