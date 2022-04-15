@@ -9,19 +9,19 @@ import { RecipeService } from 'src/app/core/recipe.service';
 })
 export class HomePageComponent implements OnInit {
   recipeList: IRecipe[] = [];
-  recipeMoastLiked: IRecipe;
-  recipeMoastCommented: IRecipe;
+  recipeMostLiked: IRecipe;
+  recipeMostCommented: IRecipe;
 
   constructor(private recipeService: RecipeService) { }
 
   ngOnInit(): void {
     this.recipeService.loadMostLiked$().subscribe(recipeList => {
-      this.recipeMoastLiked = recipeList[0];
-      console.log('liked:',recipeList)
+      this.recipeMostLiked = recipeList[0];
+      // console.log('liked:',recipeList)
     });
     this.recipeService.loadMostComment$().subscribe(recipeList => {
-      this.recipeMoastCommented = recipeList[0];
-      console.log('commented:',recipeList)
+      this.recipeMostCommented = recipeList[0];
+      // console.log('commented:',recipeList)
     });
   }
 

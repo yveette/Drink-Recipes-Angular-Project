@@ -130,9 +130,9 @@ footer i:hover, footer i:active { color: #A7DDFF; }
 
 ul.checkmark li:before { /*http://astronautweb.co/snippet/font-awesome/*/
 	font-family: 'FontAwesome'; 
-	content: '\f058'; 
+	content: '\f061'; 
 	margin:0 5px 0 -15px; 
-	color: #929292; 
+	color: #FF8E00; 
 } 
 ul.pad-left {	
 	overflow: auto;	

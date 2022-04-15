@@ -16,7 +16,7 @@
 
             <!-- User -->
             <ng-container *ngIf="(isLoggedIn$ |async)">
-                <a routerLink="/user/profile">{{(currentUser$ | async)?.username}}'s profile</a>
+                <a routerLink="/user/profile"><span>{{(currentUser$ | async)?.username}}</span> 's profile</a>
                 <a href="javascript:void(0)" (click)="logoutHandler()">Logout</a>
             </ng-container>
         </div>

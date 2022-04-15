@@ -24,12 +24,12 @@ export class RecipeService {
     return this.http.get<IRecipe>(`${apiUrl}/recipes/${id}`);
   }
 
-  loadMostLiked$(): Observable<IRecipe> {
-    return this.http.get<IRecipe>(`${apiUrl}/recipes/likes`);
+  loadMostLiked$(): Observable<IRecipe[]> {
+    return this.http.get<IRecipe[]>(`${apiUrl}/recipes/likes`);
   }
 
-  loadMostComment$(): Observable<IRecipe> {
-    return this.http.get<IRecipe>(`${apiUrl}/recipes/comments`);
+  loadMostComment$(): Observable<IRecipe[]> {
+    return this.http.get<IRecipe[]>(`${apiUrl}/recipes/comments`);
   }
 
   addRecipe$(body: CreateRecipeDto): Observable<IRecipe> {

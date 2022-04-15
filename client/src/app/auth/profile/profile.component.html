@@ -91,23 +91,29 @@
         </div>
     </ng-container>
 
-    <div *ngIf="isShowRecipes" class="pb-5">
-        <div *ngFor="let recipe of userRecipes">
-            <div class="container mt-2">
-                <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
-                    <div class="d-flex flex-column"> <span class="articles">Recipe:</span> <span
-                            class="number1">{{recipe.recipeName}}</span> </div>
-                    <div class="d-flex flex-column mt-1"> <button class="btn btn-sm btn-outline-primary"
-                            [routerLink]="['/recipes', recipe._id]">Details</button> </div>
+    <ng-container *ngIf="isShowRecipes">
+        <h4>My Recipes:</h4>
+
+        <div *ngIf="userRecipes.length == 0">
+            <p class="emptyarray"><strong> You don't have any recipes </strong></p>
+        </div>
+
+        <div class="pb-5">
+            <div *ngFor="let recipe of userRecipes">
+                <div class="container mt-2">
+                    <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                        <div class="d-flex flex-column"> <span class="articles">Recipe:</span> <span
+                                class="number1">{{recipe.recipeName}}</span> </div>
+                        <div class="d-flex flex-column mt-1"> <button class="btn btn-sm btn-outline-primary"
+                                [routerLink]="['/recipes', recipe._id]">Details</button> </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </ng-container>
 
     <ng-container *ngIf="isLikedShow">
-
         <h4>Liked Recipes:</h4>
-
         <div class="pb-5">
             <div *ngFor="let recipe of likedRecipes">
                 <div class="container mt-2">
