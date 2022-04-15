@@ -11,7 +11,7 @@ Angular web application for reading and creating recipes, also like and comment 
 
 - Angular 13.2.7
 - Angular Material
-<!-- - Angular animations -->
+- Angular animations
 - NgRx / store
 - NgRx / effects
 - Bootstrap

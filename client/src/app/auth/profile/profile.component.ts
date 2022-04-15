@@ -7,12 +7,24 @@ import { IRecipe, IUser } from 'src/app/core/interfaces';
 import { RecipeService } from 'src/app/core/recipe.service';
 import { UserService } from 'src/app/core/user.service';
 import { IAuthModuleState } from '../+store';
-import { enterEditMode, exitEditMode, profileLoaded, profilePageInitialize, updateProfileStarted } from '../+store/actions';
+import { enterEditMode, exitEditMode, profilePageInitialize, updateProfileStarted } from '../+store/actions';
+import { trigger, style, animate, transition, query, stagger } from '@angular/animations'
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css'],
+  animations: [
+    trigger('itemAnimation', [
+      transition('* => *', [
+        query('div', style({ transform: 'translateX(-100%)' })),
+        query('div',
+          stagger('100ms', [
+            animate('300ms', style({ transform: 'translateX(0)' }))
+          ]))
+      ])
+    ])
+  ]
 })
 export class ProfileComponent implements OnInit {
 
@@ -33,6 +45,8 @@ export class ProfileComponent implements OnInit {
 
   isLikedShow: boolean = false;
   likedRecipes: IRecipe[] = [];
+
+  isDisabled: boolean = true;
 
   constructor(
     private userService: UserService,
@@ -76,18 +90,25 @@ export class ProfileComponent implements OnInit {
     this.store.dispatch(exitEditMode());
   }
 
-  showUserRecipes(currentUser: IUser) {
-    // console.log(this.currentUser._id)
-    this.recipeService.getAllRecipesByUser$(currentUser._id).subscribe({
-      next: (recipes) => {
-        // console.log(recipes)
-        this.userRecipes = recipes;
-        this.isShowRecipes = !this.isShowRecipes;
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    })
+  showUserRecipes(currentUser: IUser, action: string) {
+
+    if (action == 'show') {
+      // console.log(this.currentUser._id)
+      this.recipeService.getAllRecipesByUser$(currentUser._id).subscribe({
+        next: (recipes) => {
+          // console.log(recipes)
+          this.userRecipes = recipes;
+          this.isShowRecipes = !this.isShowRecipes;
+          this.isDisabled = !this.isDisabled;
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      })
+    } else if (action == 'hide') {
+      this.isShowRecipes = !this.isShowRecipes;
+      this.isDisabled = !this.isDisabled;
+    }
   }
 
   updateProfile(): void {
@@ -103,17 +124,22 @@ export class ProfileComponent implements OnInit {
     this.store.dispatch(exitEditMode());
   }
 
-  showLikedByUserRecipes(currentUser: IUser) {
-
-    this.recipeService.getAllLikedByUser$(currentUser._id).subscribe({
-      next: (recipes) => {
-        console.log(recipes)
-        this.likedRecipes = recipes;
-        this.isLikedShow = !this.isLikedShow;
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    })
+  showLikedByUserRecipes(currentUser: IUser, action: string) {
+    if (action == 'show') {
+      this.recipeService.getAllLikedByUser$(currentUser._id).subscribe({
+        next: (recipes) => {
+          console.log(recipes)
+          this.likedRecipes = recipes;
+          this.isLikedShow = !this.isLikedShow;
+          this.isDisabled = !this.isDisabled;
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      })
+    } else if (action == 'hide') {
+      this.isLikedShow = !this.isLikedShow;
+      this.isDisabled = !this.isDisabled;
+    }
   }
 }

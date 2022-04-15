@@ -20,18 +20,18 @@
                         <div class="button mt-2 d-flex flex-row align-items-center">
                             <button (click)="enterEditMode(currentUser)"
                                 class="btn btn-sm btn-outline-primary w-100 btnedit">Edit</button>
-                            <button *ngIf="!isShowRecipes" (click)="showUserRecipes(currentUser)"
+                            <button *ngIf="!isShowRecipes" (click)="showUserRecipes(currentUser, 'show')"
                                 class="btn btn-sm btn-primary w-100 ml-2">
                                 My recipes</button>
-                            <button *ngIf="isShowRecipes" (click)="showUserRecipes(currentUser)"
+                            <button *ngIf="isShowRecipes" (click)="showUserRecipes(currentUser, 'hide')"
                                 class="btn btn-sm btn-primary w-100 ml-2">
                                 Hide recipes</button>
 
                             <!-- *ngIf="isLikedShow" -->
-                            <button *ngIf="!isLikedShow" (click)="showLikedByUserRecipes(currentUser)"
+                            <button *ngIf="!isLikedShow" (click)="showLikedByUserRecipes(currentUser, 'show')"
                                 class="btn btn-sm btn-primary w-100 ml-2">
                                 Liked recipes</button>
-                            <button *ngIf="isLikedShow" (click)="showLikedByUserRecipes(currentUser)"
+                            <button *ngIf="isLikedShow" (click)="showLikedByUserRecipes(currentUser, 'hide')"
                                 class="btn btn-sm btn-primary w-100 ml-2">
                                 Hide recipes</button>
                         </div>
@@ -98,14 +98,16 @@
             <p class="emptyarray"><strong> You don't have any recipes </strong></p>
         </div>
 
-        <div class="pb-5">
-            <div *ngFor="let recipe of userRecipes">
-                <div class="container mt-2">
-                    <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
-                        <div class="d-flex flex-column"> <span class="articles">Recipe:</span> <span
-                                class="number1">{{recipe.recipeName}}</span> </div>
-                        <div class="d-flex flex-column mt-1"> <button class="btn btn-sm btn-outline-primary"
-                                [routerLink]="['/recipes', recipe._id]">Details</button> </div>
+        <div [@.disabled]="isDisabled">
+            <div class="pb-5" [@itemAnimation]="userRecipes.length">
+                <div *ngFor="let recipe of userRecipes">
+                    <div class="container mt-2">
+                        <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                            <div class="d-flex flex-column"> <span class="articles">Recipe:</span> <span
+                                    class="number1">{{recipe.recipeName}}</span> </div>
+                            <div class="d-flex flex-column mt-1"> <button class="btn btn-sm btn-outline-primary"
+                                    [routerLink]="['/recipes', recipe._id]">Details</button> </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -114,14 +116,16 @@
 
     <ng-container *ngIf="isLikedShow">
         <h4>Liked Recipes:</h4>
-        <div class="pb-5">
-            <div *ngFor="let recipe of likedRecipes">
-                <div class="container mt-2">
-                    <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
-                        <div class="d-flex flex-column"> <span class="articles">Recipe:</span> <span
-                                class="number1">{{recipe.recipeName}}</span> </div>
-                        <div class="d-flex flex-column mt-1"> <button class="btn btn-sm btn-outline-primary"
-                                [routerLink]="['/recipes', recipe._id]">Details</button> </div>
+        <div [@.disabled]="isDisabled">
+            <div class="pb-5" [@itemAnimation]="userRecipes.length">
+                <div *ngFor="let recipe of likedRecipes">
+                    <div class="container mt-2">
+                        <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                            <div class="d-flex flex-column"> <span class="articles">Recipe:</span> <span
+                                    class="number1">{{recipe.recipeName}}</span> </div>
+                            <div class="d-flex flex-column mt-1"> <button class="btn btn-sm btn-outline-primary"
+                                    [routerLink]="['/recipes', recipe._id]">Details</button> </div>
+                        </div>
                     </div>
                 </div>
             </div>
