@@ -1,33 +1,35 @@
 .topnav {
-  background-color: #4899e9;
+  background-color: #ffb35563;
   overflow: hidden;
 }
 
 .topnav a {
   float: left;
-  color: black;
+  color: #104C88;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 .topnav a:hover {
   border-radius: 15px 50px;
-  background-color: #0a335b;
+  background-color: #4899E9;
   color: white;
   
 }
 
 .topnav a.home {
   border-radius: 15px 50px;
-  background-color: #104c88;
+  background-color: #104C88;
   color: white;
 }
 
 .topnav a.home:hover{
   border-radius: 15px 50px;
-  background-color: #0a335b;
+  background-color: #4899E9;
 }
 
 .topnav-right {
@@ -52,5 +54,5 @@
 }
 
 .success-message {
-  background-color: rgba(99, 230, 81, 0.699);
+  background-color: rgba(104, 223, 88, 0.747);
 }

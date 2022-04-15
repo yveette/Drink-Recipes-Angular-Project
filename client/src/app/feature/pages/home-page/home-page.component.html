@@ -2,29 +2,38 @@
     <app-welcome></app-welcome>
 </div>
 
+<h3>Most Liked Recipe:</h3>
+
 <div class="card-container" *ngIf="recipeMoastLiked">
     <div class="card u-clearfix">
         <div class="card-body">
-            <span class="card-number card-circle subtle">#1</span>
-            <span class="card-author subtle">Most liked: </span>
+            <span class="card-number subtle"><i class="fas fa-trophy fa-lg winner"></i></span>
             <h2 class="card-title">{{recipeMoastLiked.recipeName}}</h2>
-            <span class="card-description subtle">Author: {{recipeMoastLiked.userId.username}}</span>
-                <!-- [routerLink]="['/recipes', recipe._id]" -->
+            <div class="iconsgrid">
+                <p class="card-description subtle"><i class="far fa-user icons"></i> Author:
+                    {{recipeMoastLiked.userId.username}}</p>
+                <p class="card-description subtle"><i class="fa fa-thumbs-up icons"></i> Likes:
+                    {{recipeMoastLiked.likes.length}}</p>
+            </div>
             <div class="card-read" [routerLink]="['/recipes', recipeMoastLiked._id]">Details</div>
         </div>
         <img src="{{recipeMoastLiked.imgUrl}}" alt="image" class="card-media" />
     </div>
 </div>
 
+<h3>Most Commented Recipe:</h3>
 
 <div class="card-container" *ngIf="recipeMoastCommented">
     <div class="card u-clearfix">
         <div class="card-body">
-            <span class="card-number card-circle subtle">#1</span>
-            <span class="card-author subtle">Most liked: </span>
+            <span class="card-number subtle"><i class="fas fa-trophy fa-lg winner"></i></span>
             <h2 class="card-title">{{recipeMoastCommented.recipeName}}</h2>
-            <span class="card-description subtle">Author: {{recipeMoastCommented.userId.username}}</span>
-                <!-- [routerLink]="['/recipes', recipe._id]" -->
+            <div class="iconsgrid">
+                <p class="card-description subtle"><i class="far fa-user icons"></i> Author:
+                    {{recipeMoastCommented.userId.username}}</p>
+                <p class="card-description subtle"><i class="fa fa-thumbs-up icons"></i> Comments:
+                    {{recipeMoastCommented.comments.length}}</p>
+            </div>
             <div class="card-read" [routerLink]="['/recipes', recipeMoastCommented._id]">Details</div>
         </div>
         <img src="{{recipeMoastCommented.imgUrl}}" alt="image" class="card-media" />

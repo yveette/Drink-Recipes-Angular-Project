@@ -5,9 +5,9 @@
             <h3>{{recipe.recipeName}}</h3>
             <!-- TODO: Use pipe for description -->
             <!-- <p>{{(recipe.description | slice:0:25)}}...</p> -->
-            <p><strong>Likes: </strong> {{recipe.likes.length}}</p>
-            <p><strong>Comments: </strong> {{recipe.comments.length}}</p>
-            <p><strong>Author: </strong> {{recipe.userId.username}}</p>
+            <p><strong><i class="fa fa-thumbs-up icons"></i> Likes: </strong> {{recipe.likes.length}}</p>
+            <p><strong><i class="far fa-comment icons"></i> Comments: </strong> {{recipe.comments.length}}</p>
+            <p><strong><i class="fas fa-user icons"></i> Author: </strong> {{recipe.userId.username}}</p>
 
             <button class="btn" >Details</button>
         </div>

@@ -3,20 +3,21 @@
     border: 1px solid #999;
     border-radius: 0.3em;
     margin-top: 1em;
-    background-color: #4798e883;
+    background-color: rgba(255, 255, 255, 0.737);
     /* width: 80%; */
 }
 
 .welcome h3 {
-    background-color: #104C88;
+    background-color: #4798E8;
     color: white;
     border-radius: 0.3em;
     padding: 0.3em 1em;
+    font-weight: 600;
 }
 
 .welcome p {
     padding: 1em;
-    border-bottom: 1px solid #999;
+    /* border-bottom: 1px solid #999; */
     font-style: normal;
 }
 
@@ -28,11 +29,14 @@
     border-radius: 0.3em;
     padding: 0.5em 5.2em;
     margin: 1em;
+    text-transform: uppercase;
 }
 
 .welcome a:hover {
     cursor: pointer;
-    background-color: #1565B5;
+    background-color: #FFDDB3;
+    color: #104C88;
+    font-weight: 600;
 }
 
 .welcome ul {

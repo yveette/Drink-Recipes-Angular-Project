@@ -196,3 +196,12 @@ span{
 .icons {
     color: #0A335B ;
 }
+
+.userLogin {
+    display: flex;
+    justify-content: center;
+}
+
+.userLogin a{
+    padding-left: 10px;
+}

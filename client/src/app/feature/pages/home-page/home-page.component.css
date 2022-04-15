@@ -1,8 +1,11 @@
 .welcome {
-    background-image: url("https://images.unsplash.com/photo-1551024709-8f23befc6f87?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=957&q=80");
+    background-image: url("https://images.freeimages.com/images/large-previews/a55/coctails-1-1566812.jpg");
+    background-position: center;
+    background-size: cover;
     height: 535px;
+    width: 95%;
     margin: 20px;
-    padding: 90px;
+    padding: 230px 160px 0 160px;
     text-align: center;
     border-radius: 50px 200px;
 }
@@ -28,7 +31,7 @@
 }
 
 .subtle {
-  color: #aaa;
+  color: #7fa2c5;
 } 
 
 .card-container {
@@ -38,11 +41,11 @@
 }
 
 .card {
-  background-color: #fff;
   padding: 30px;
   position: relative;
   box-shadow: 0 0 5px rgba(75, 75, 75, .07);
   z-index: 1;
+  background-color: #4899e91f;
 }
 
 .card-body {
@@ -75,6 +78,7 @@
 }
 
 .card-title {
+  color: #104C88;
   font-family: 'Cormorant Garamond', serif;
   font-size: 60px;
   font-weight: 300;
@@ -90,14 +94,20 @@
 }
 
 .card-read {
+  color: #104C88;
   cursor: pointer;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 6px;
   margin: 5px 0 20px;
   position: relative;
   text-align: right;
   text-transform: uppercase;
+}
+
+.card-read:hover {
+  color: #FF8E00;
+  font-weight: 600;
 }
 
 .card-read:after {
@@ -130,4 +140,30 @@
   margin: -1px auto 0;
   width: 80%;
   z-index: -1;
+}
+
+h3 {
+  color: #104C88;
+  font-weight: 600;
+  text-align: center;
+  background-color: #FFDDB3;
+  padding: 10px;
+  margin: 25px 105px;
+  border-radius: 20px 60px;
+}
+
+.icons {
+  color: #7fa2c5 ;
+}
+
+.iconsgrid {
+  display: grid;
+}
+
+.iconsgrid p {
+  margin: 0;
+}
+
+.winner {
+  color: #FF8E00;
 }

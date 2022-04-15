@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, Observable, tap } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
@@ -17,12 +17,11 @@ export class RecipesNewCommentComponent implements OnInit {
   @Input() recipeId: string;
   @Input() recipe: IRecipe;
 
-  comments: any[];
+  comments: any[] = [];
   canLikeComment: boolean;
 
   currentUser$: Observable<IUser> = this.authService.currentUser$;
   isLoggedIn$ = this.currentUser$.pipe(map(user => !!user));
-  canLikeComment$: Observable<boolean>;
 
   currUser?: IUser;
 
@@ -34,7 +33,6 @@ export class RecipesNewCommentComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     this.recipeService.loadRecipeById(this.recipeId).subscribe(recipe => {
       this.comments = recipe.comments;
 
@@ -43,6 +41,7 @@ export class RecipesNewCommentComponent implements OnInit {
         this.currentUser$.subscribe(user => this.currUser = user);
         this.canLikeComment = c.likes.includes(this.currUser._id)
         c.canLike = c.likes.includes(this.currUser._id)
+        c.isOwner = c.userId._id == this.currUser._id
       })
 
       // console.log(this.comments);
@@ -54,7 +53,6 @@ export class RecipesNewCommentComponent implements OnInit {
     this.commentService.addComment$(text, this.recipeId).subscribe({
       next: (comment) => {
         // console.log('returned comment: ', comment);
-        // this.router.navigate(['/recipes', this.recipeId])
 
         this.router.navigateByUrl(`/RefreshComponent`, { skipLocationChange: true }).then(() => {
           this.router.navigate(['/recipes', this.recipeId]);
