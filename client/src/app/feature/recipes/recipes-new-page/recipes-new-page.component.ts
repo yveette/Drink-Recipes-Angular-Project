@@ -52,8 +52,8 @@ export class RecipesNewPageComponent implements OnInit {
 
   handleCreateRecipe() {
 
-     // Transform ingridients to array
-     if (this.recipeFormGroup.value.ingredients.includes(',\n')) {
+    // Transform ingridients to array
+    if (this.recipeFormGroup.value.ingredients.includes(',\n')) {
       this.recipeFormGroup.value.ingredients = this.recipeFormGroup.value.ingredients.split(',\n');
     }
     this.recipeFormGroup.value.recipeName = this.recipeFormGroup.value.recipeName.trim();
@@ -67,12 +67,10 @@ export class RecipesNewPageComponent implements OnInit {
 
       this.recipeService.updateRecipe$(this.recipeToUpdate._id, this.recipeFormGroup.value).subscribe({
         next: recipe => {
-          // console.log(recipe);
-          this.navigateToRecipes();
-          // this.router.navigate(['/recipes', this.recipeToUpdate._id])
-          //   .then(() => {
-          //     window.location.reload();
-          //   })
+          // console.log(recipe._id);
+          this.router.navigateByUrl(`/RefreshComponent`, { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/recipes', recipe._id]);
+          });
 
           this.messageBus.notifyForMessage({
             text: 'User successfully updated recipe!',
@@ -82,8 +80,11 @@ export class RecipesNewPageComponent implements OnInit {
         error: (err) => {
           console.log('Error is ', err.error.message)
           // this.errorMessage = err.error.message;
+          this.messageBus.notifyForMessage({
+            text: err.error.message,
+            type: MessageType.Error
+          })
         }
-
       })
 
       // Creating mode
@@ -93,7 +94,7 @@ export class RecipesNewPageComponent implements OnInit {
       this.recipeService.addRecipe$(this.recipeFormGroup.value).subscribe({
         next: (recipe) => {
           // console.log(recipe);
-          this.navigateToRecipes();
+          this.router.navigate(['/recipes', recipe._id])
 
           this.messageBus.notifyForMessage({
             text: 'User successfully create new recipe!',
@@ -105,9 +106,5 @@ export class RecipesNewPageComponent implements OnInit {
         }
       })
     }
-  }
-
-  navigateToRecipes(): void {
-    this.router.navigate(['/recipes'])
   }
 }

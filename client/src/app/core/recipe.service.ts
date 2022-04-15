@@ -41,8 +41,8 @@ export class RecipeService {
     return this.http.get<IRecipe[]>(`${apiUrl}/users/profile/${userId}`, { withCredentials: true });
   }
 
-  updateRecipe$(id: string, body: CreateRecipeDto) {
-    return this.http.put(`${apiUrl}/recipes/${id}/edit`, body, { withCredentials: true });
+  updateRecipe$(id: string, body: CreateRecipeDto): Observable<IRecipe> {
+    return this.http.put<IRecipe>(`${apiUrl}/recipes/${id}/edit`, body, { withCredentials: true });
   }
 
   deleteRecipe(id: string) {
